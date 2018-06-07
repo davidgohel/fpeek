@@ -1,0 +1,18 @@
+Package: fpeek
+Type: Package
+Title: Check Text Files Content at a Glance
+Version: 0.0.1
+Authors@R: c(
+    person("David", "Gohel", role = c("aut", "cre"),
+    email = "david.gohel@ardata.fr"))
+Description: Check text files content from R. This package is to be 
+ used when there is no access to programs 'head', 'tail', 'wc' and 'iconv'. 
+ Functions are available to help importation of text files from R by 
+ letting users see the first and last lines, converting encoding or 
+ count the total number of lines. 
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: Rcpp (>= 0.12.12)
+LinkingTo: Rcpp
+RoxygenNote: 6.0.1

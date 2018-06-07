@@ -1,0 +1,144 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+library(flextable)
+```
+
+<p align="center">
+  <img width="15%" src="http://www.ardata.fr/images/fpeek.svg">
+</p>
+
+# fpeek
+
+The goal of fpeek is to help importation of text files from R.
+
+When a text file has unknown characteristics, beeing able 
+to have a glance at it helps to get those:
+
+* Use function `file_nlines()` to count lines contained in a file.
+* Functions `file_head_show()` and `file_tail_show()` will display 
+first and last lines of the file. 
+
+Sometimes encoding is an issue when files generated on a "Windows" machine 
+has to be used on a "Linux" machine. Function `file_iconv` will converts 
+file content in one encoding to another encoding.
+
+
+## Installation
+
+```{r 'github-install', eval=FALSE}
+devtools::install_github("davidgohel/fpeek")
+```
+
+## Example
+
+First download an example file, the file is containing lot of times series 
+about power system and has lot of lines.
+
+```{r 'download-file'}
+library(fpeek)
+power_file <- tempfile(fileext = ".csv")
+download.file("https://data.open-power-system-data.org/time_series/2018-03-13/time_series_15min_singleindex.csv", destfile = power_file)
+```
+
+### Counting number of lines:
+
+
+```{r 'nlines-ex'}
+file_nlines(power_file)
+```
+
+### Show first and last lines of a file
+
+The first lines can be printed in the console with function `file_head_show()`. 
+
+```{r 'head-show-ex'}
+file_head_show(power_file, n = 4)
+```
+
+`file_head_char()` is also provided to get the first lines as a character vector.
+
+```{r 'head-char-ex'}
+file_head_char(power_file, n = 4)
+```
+
+The last lines can be printed in the console with function `file_tail_show()`. 
+
+```{r 'tail-show-ex'}
+file_tail_show(power_file, n = 4)
+```
+
+`file_tail_char()` is also provided to get the last lines as a character vector.
+
+```{r 'tail-char-ex'}
+file_tail_char(power_file, n = 4)
+```
+
+
+### File reencoding
+
+```{r 'file-iconv-ex'}
+la_cigale <- system.file(package = "fpeek", "datafiles", 
+  "cigale-ISO-8859-1.txt")
+file_head_char(la_cigale, n = 4)
+
+file_iconv(la_cigale, from = "WINDOWS-1252", to = "UTF-8")
+```
+
+Function `file_iconv()` is converting the content of the file 
+and print the result in the console. Use `sink()` to create 
+a file:
+
+```{r 'file-iconv-sink-ex', eval=FALSE}
+file_utf8 <- tempfile()
+
+file_con <- file( file_utf8, open = "wt", encoding = "UTF-8")
+
+sink(file = file_con)
+file_iconv(la_cigale, from = "WINDOWS-1252", to = "UTF-8")
+sink()
+
+close(file_con)
+```
+
+## Comparing speed with other methods:
+
+### `file_nlines`
+
+```{r 'bench-nlines', message=FALSE, warning=FALSE}
+library(microbenchmark)
+
+benchmark <- microbenchmark(
+  "fpeek::file_nlines" = { file_nlines(power_file) },
+  "R.utils::countLines" = { R.utils::countLines(power_file) }, 
+  "wc command" = { system(sprintf("wc -l %s", power_file), intern = TRUE) }
+  )
+
+benchmark
+```
+
+### `file_head_show`
+
+```{r 'bench-head-show', message=FALSE, warning=FALSE, results='hide'}
+library(microbenchmark)
+benchmark <- microbenchmark(
+  "fpeek::file_head_show" = { file_head_show(power_file, n = 5) },
+  "base::readLines" = { print(readLines(power_file, n = 5)) }, 
+  "head command" = { print(system(sprintf("head -n 5 %s", power_file), intern = TRUE)) }
+  )
+```
+
+```{r}
+benchmark
+```
+

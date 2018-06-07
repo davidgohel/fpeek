@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 124.44 144.00" id="svg2" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <defs id="defs4">
+    <style type="text/css" id="style6">
+    line, polyline, path, rect, circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  </style>
+  </defs>
+  <rect width="100%" height="100%" style="stroke: none; fill: none;" id="rect8"/>
+  <rect x="0.00" y="0.14" width="124.44" height="143.71" style="stroke-width: 1.07; stroke: none;" clip-path="url(#cpMHwxMjQuNDQxfDE0My44NTd8MC4xNDMxMzc=)" id="rect15"/>
+  <rect x="-0.14" y="0.14" width="124.58" height="143.85" style="stroke-width: 1.07; stroke: none;" clip-path="url(#cpMHwxMjQuNDQxfDE0My45OTd8MC4xNDMxMzc=)" id="rect27"/>
+  <polyline points="2.285 37.429 2.285 106.799 62.105 141.486 121.926 106.799 121.926 37.429 62.105 2.743 2.285 37.429" style="stroke: rgb(0, 102, 153); stroke-width: 4; fill: rgb(224, 224, 224); fill-opacity: 0.5;" clip-path="url(#cpMHwxMjQuNDQxfDE0My45OTd8MC4xNDMxMzc=)" id="polyline29"/>
+  <text x="8.134" y="104.286" transform="matrix(0.866025, -0.5, 0.5, 0.866026, -41.466549, -37.384087)" style="fill: rgb(0, 102, 153); font-family: sans-serif; font-size: 19px; font-weight: bold; letter-spacing: 0.3px; white-space: pre;">fpeek</text>
+  <text x="0" y="50" transform="matrix(0.866025, -0.5, 0.5, 0.866026, 46.601307, 88.062561)" style="fill: rgb(0, 102, 153); font-family: sans-serif; font-size: 7px; white-space: pre;">www.ardata.fr</text>
+  <path d="M 62.22 47.25 C 35.22 47.25 26.22 74.25 26.22 74.25 C 26.22 74.25 34.797 96.749 62.22 96.749 C 89.643 96.749 98.22 74.25 98.22 74.25 C 98.22 74.25 89.22 47.25 62.22 47.25 Z M 62.22 92.25 C 39.719 92.25 35.22 74.25 35.22 74.25 C 35.22 74.25 39.859 56.25 62.22 56.25 C 84.58 56.25 89.22 74.25 89.22 74.25 C 89.22 74.25 84.719 92.25 62.22 92.25 Z M 62.22 60.749 C 60.847 60.749 59.552 61.016 58.305 61.397 C 60.615 62.468 62.22 64.791 62.22 67.499 C 62.22 71.226 59.196 74.25 55.469 74.25 C 52.761 74.25 50.438 72.645 49.367 70.335 C 48.986 71.582 48.719 72.877 48.719 74.25 C 48.719 81.709 54.766 87.749 62.22 87.749 C 69.679 87.749 75.719 81.709 75.719 74.25 C 75.719 66.796 69.679 60.749 62.22 60.749 Z" style="stroke: none; fill: rgb(0, 102, 153);"/>
+</svg>
