@@ -1,5 +1,5 @@
 #include <fstream>
-#include <iconv.h>
+#include "R_ext/Riconv.h"
 #include <errno.h>
 #include <sstream>
 #include <Rcpp.h>
@@ -90,7 +90,7 @@ std::vector< std::string> file_head_str_(std::string filename, int n) {
 void file_head_print_(std::string filename, int n) {
 
   std::vector< std::string > head_str = file_head_str_(filename, n);
-  for(int i = 0 ; i < head_str.size() ; i++ ){
+  for(size_t i = 0 ; i < head_str.size() ; i++ ){
     Rcout << head_str[i] << "\n";
   }
   return;
@@ -152,7 +152,7 @@ std::vector< std::string> file_tail_str_(std::string filename, int n) {
 // [[Rcpp::export]]
 void file_tail_print_(std::string filename, int n) {
   std::vector< std::string> tail_str = file_tail_str_(filename, n);
-  for(int i = 0 ; i < tail_str.size() ; i++ ){
+  for(size_t i = 0 ; i < tail_str.size() ; i++ ){
     Rcout << tail_str[i] << "\n";
   }
   return;
@@ -163,9 +163,9 @@ std::string iconv_str(std::string str, std::string enc_from, std::string enc_to)
   size_t str_len = str.length();
   size_t str_left = str_len;
 
-  iconv_t iconv_handle = iconv_open(enc_to.c_str(), enc_from.c_str());
+  void* iconv_handle = Riconv_open(enc_to.c_str(), enc_from.c_str());
 
-  if (iconv_handle == (iconv_t) -1) {
+  if (iconv_handle == (void*) -1) {
     if (errno == EINVAL) {
       std::stringstream msg;
       msg << "invalid conversion from " << enc_from << " to " << enc_to;
@@ -179,11 +179,13 @@ std::string iconv_str(std::string str, std::string enc_from, std::string enc_to)
   std::string buf(buf_len, ' ');
   size_t buf_left = buf_len;
 
-  char *str_ptr = &str[0];
+  const char *str_ptr = &str[0];
   char *buf_ptr = &buf[0];
 
   while (true) {
-    size_t res = iconv(iconv_handle, &str_ptr, &str_left, &buf_ptr, &buf_left);
+    size_t res = Riconv(iconv_handle, &str_ptr,
+                       &str_left, &buf_ptr,
+                       &buf_left);
 
     if (res == (size_t) -1) {
       if (errno == E2BIG) {
@@ -202,7 +204,7 @@ std::string iconv_str(std::string str, std::string enc_from, std::string enc_to)
     }
   }
 
-  if (iconv_close(iconv_handle) != 0) {
+  if (Riconv_close(iconv_handle) != 0) {
     stop("error while closing iconv");
   }
 
