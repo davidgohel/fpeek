@@ -2,10 +2,29 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 <p align="center">
-  <img width="15%" src="http://www.ardata.fr/images/fpeek.svg">
+
+<img width="15%" src="http://www.ardata.fr/images/fpeek.svg">
+
 </p>
 
-# fpeek
+## Motivation
+
+The first motivation to write that package is that many people who need
+to import text files with R don’t use `head`, `tail` and `wc -l`
+commands. I noticed few use cases :
+
+  - R is installed on a Windows machine but not Rtools (i.e. in
+    corporate environments).
+  - Users are unwilling to use command line, simply because there are
+    not used to.
+  - R is in a `Chroot Jail` and these commands are not avalaible to the
+    user.
+
+and I think these are great tools to use when importing text files.
+Having a package avalaible for that should make these tools easier to
+use for these users.
+
+## fpeek
 
 The goal of fpeek is to help importation of text files from R.
 
@@ -33,11 +52,23 @@ series about power system and has lot of lines.
 
 ``` r
 library(fpeek)
-power_file <- tempfile(fileext = ".csv")
-download.file("https://data.open-power-system-data.org/time_series/2018-03-13/time_series_15min_singleindex.csv", destfile = power_file)
+power_file <- "singleindex.csv"
+if( !file.exists(power_file))
+  download.file(
+    "https://data.open-power-system-data.org/time_series/2018-03-13/time_series_15min_singleindex.csv", 
+    destfile = power_file)
 ```
 
 ### Counting number of lines:
+
+Using `wc -l`
+
+``` r
+system(sprintf("wc -l %s", power_file), intern = TRUE)
+#> [1] "  420773 singleindex.csv"
+```
+
+Using `file_nlines()`
 
 ``` r
 file_nlines(power_file)
@@ -63,8 +94,8 @@ character vector.
 ``` r
 file_head_char(power_file, n = 4)
 #> [1] "utc_timestamp,cet_cest_timestamp,AT_load_entsoe_transparency,AT_solar_generation_actual,AT_wind_onshore_generation_actual,DE_load_entsoe_transparency,DE_solar_capacity,DE_solar_generation_actual,DE_solar_profile,DE_wind_capacity,DE_wind_generation_actual,DE_wind_profile,DE_wind_offshore_capacity,DE_wind_offshore_generation_actual,DE_wind_offshore_profile,DE_wind_onshore_capacity,DE_wind_onshore_generation_actual,DE_wind_onshore_profile,DE_50hertz_load_entsoe_transparency,DE_50hertz_solar_generation_actual,DE_50hertz_solar_generation_forecast,DE_50hertz_wind_generation_actual,DE_50hertz_wind_generation_forecast,DE_50hertz_wind_offshore_generation_actual,DE_50hertz_wind_offshore_generation_forecast,DE_50hertz_wind_onshore_generation_actual,DE_50hertz_wind_onshore_generation_forecast,DE_AT_LU_load_entsoe_transparency,DE_AT_LU_solar_generation_actual,DE_AT_LU_wind_offshore_generation_actual,DE_AT_LU_wind_onshore_generation_actual,DE_amprion_load_entsoe_transparency,DE_amprion_solar_generation_actual,DE_amprion_solar_generation_forecast,DE_amprion_wind_generation_actual,DE_amprion_wind_generation_forecast,DE_amprion_wind_onshore_generation_actual,DE_tennet_load_entsoe_transparency,DE_tennet_solar_generation_actual,DE_tennet_solar_generation_forecast,DE_tennet_wind_generation_actual,DE_tennet_wind_generation_forecast,DE_tennet_wind_offshore_generation_actual,DE_tennet_wind_onshore_generation_actual,DE_transnetbw_load_entsoe_transparency,DE_transnetbw_solar_generation_actual,DE_transnetbw_solar_generation_forecast,DE_transnetbw_wind_generation_actual,DE_transnetbw_wind_generation_forecast,DE_transnetbw_wind_onshore_generation_actual,HU_load_entsoe_transparency,HU_wind_onshore_generation_actual,LU_load_entsoe_transparency,NL_load_entsoe_transparency,NL_solar_generation_actual,NL_wind_offshore_generation_actual,NL_wind_onshore_generation_actual,interpolated_values"
-#> [2] "2005-12-31T23:00:00Z,2006-01-01T00:00:00+0100,,,,,2028.0000,,,,,,,,,16394.0000,,,,,,2013.0000,1366.0000,,,,,,,,,,,,,,,,,,1705.0000,1864.0000,0.0000,1705.0000,,,,,,,,,,,,,,"
-#> [3] "2005-12-31T23:15:00Z,2006-01-01T00:15:00+0100,,,,,2028.0000,,,,,,,,,16394.0000,,,,,,2053.0000,1366.0000,,,,,,,,,,,,,,,,,,1739.0000,1864.0000,0.0000,1739.0000,,,,,,,,,,,,,,"
+#> [2] "2005-12-31T23:00:00Z,2006-01-01T00:00:00+0100,,,,,2028.0000,,,,,,,,,16394.0000,,,,,,2013.0000,1366.0000,,,,,,,,,,,,,,,,,,1705.0000,1864.0000,0.0000,1705.0000,,,,,,,,,,,,,,"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+#> [3] "2005-12-31T23:15:00Z,2006-01-01T00:15:00+0100,,,,,2028.0000,,,,,,,,,16394.0000,,,,,,2053.0000,1366.0000,,,,,,,,,,,,,,,,,,1739.0000,1864.0000,0.0000,1739.0000,,,,,,,,,,,,,,"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 #> [4] "2005-12-31T23:30:00Z,2006-01-01T00:30:00+0100,,,,,2028.0000,,,,,,,,,16394.0000,,,,,,2188.0000,1366.0000,,,,,,,,,,,,,,,,,,1700.0000,1864.0000,0.0000,1700.0000,,,,,,,,,,,,,,"
 ```
 
@@ -148,7 +179,7 @@ close(file_con)
 ``` r
 library(microbenchmark)
 
-benchmark <- microbenchmark(
+benchmark <- microbenchmark(times = 20, 
   "fpeek::file_nlines" = { file_nlines(power_file) },
   "R.utils::countLines" = { R.utils::countLines(power_file) }, 
   "wc command" = { system(sprintf("wc -l %s", power_file), intern = TRUE) }
@@ -157,20 +188,20 @@ benchmark <- microbenchmark(
 benchmark
 #> Unit: milliseconds
 #>                 expr       min        lq      mean    median        uq
-#>   fpeek::file_nlines  292.6669  295.1256  301.8779  296.6848  298.3771
-#>  R.utils::countLines 3109.6786 3261.7364 3335.5405 3302.0165 3412.7215
-#>           wc command  111.7104  113.1857  116.3097  114.4630  115.3531
+#>   fpeek::file_nlines  281.9190  283.7528  288.3744  284.5082  289.3499
+#>  R.utils::countLines 2971.3359 3061.1417 3240.5050 3126.5603 3246.1443
+#>           wc command  107.6656  108.0383  111.4957  108.8777  111.4168
 #>        max neval
-#>   463.9768   100
-#>  3719.2635   100
-#>   263.4251   100
+#>   313.6218    20
+#>  4568.4816    20
+#>   128.6038    20
 ```
 
 ### `file_head_show`
 
 ``` r
 library(microbenchmark)
-benchmark <- microbenchmark(
+benchmark <- microbenchmark(times = 20, 
   "fpeek::file_head_show" = { file_head_show(power_file, n = 5) },
   "base::readLines" = { print(readLines(power_file, n = 5)) }, 
   "head command" = { print(system(sprintf("head -n 5 %s", power_file), intern = TRUE)) }
@@ -180,12 +211,12 @@ benchmark <- microbenchmark(
 ``` r
 benchmark
 #> Unit: microseconds
-#>                   expr      min        lq      mean    median       uq
-#>  fpeek::file_head_show   61.772   81.8265  106.8277   97.0545  125.389
-#>        base::readLines 1205.106 1238.0100 1271.9673 1262.3895 1299.092
-#>           head command 4458.534 4673.5485 4892.2004 4779.9820 5010.116
+#>                   expr      min        lq      mean   median       uq
+#>  fpeek::file_head_show   61.423   63.4475   76.0334   73.268   89.590
+#>        base::readLines 1205.820 1214.2940 1238.5438 1234.161 1244.761
+#>           head command 4467.791 4569.1645 4706.8896 4694.783 4766.306
 #>       max neval
-#>   364.303   100
-#>  1547.858   100
-#>  6572.610   100
+#>    95.636    20
+#>  1336.652    20
+#>  5196.719    20
 ```
