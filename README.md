@@ -33,7 +33,9 @@ glance at it helps to get those:
 
   - Use function `file_nlines()` to count lines contained in a file.
   - Functions `file_head_show()` and `file_tail_show()` will display
-    first and last lines of the file.
+    first and last lines of the file. Function `file_less` is
+    reproducing a basic `less` usage (available only in interactive
+    mode).
 
 Sometimes encoding is an issue when files generated on a “Windows”
 machine has to be used on a “Linux” machine. Function `file_iconv` will
@@ -188,13 +190,13 @@ benchmark <- microbenchmark(times = 20,
 benchmark
 #> Unit: milliseconds
 #>                 expr       min        lq      mean    median        uq
-#>   fpeek::file_nlines  281.9190  283.7528  288.3744  284.5082  289.3499
-#>  R.utils::countLines 2971.3359 3061.1417 3240.5050 3126.5603 3246.1443
-#>           wc command  107.6656  108.0383  111.4957  108.8777  111.4168
+#>   fpeek::file_nlines  290.1503  291.3008  293.1986  292.1750  292.9568
+#>  R.utils::countLines 3045.2545 3102.7481 3172.7320 3156.0963 3199.7056
+#>           wc command  109.7969  111.5826  112.4442  111.9426  112.5651
 #>        max neval
-#>   313.6218    20
-#>  4568.4816    20
-#>   128.6038    20
+#>   305.8739    20
+#>  3545.6025    20
+#>   120.2334    20
 ```
 
 ### `file_head_show`
@@ -211,12 +213,12 @@ benchmark <- microbenchmark(times = 20,
 ``` r
 benchmark
 #> Unit: microseconds
-#>                   expr      min        lq      mean   median       uq
-#>  fpeek::file_head_show   61.423   63.4475   76.0334   73.268   89.590
-#>        base::readLines 1205.820 1214.2940 1238.5438 1234.161 1244.761
-#>           head command 4467.791 4569.1645 4706.8896 4694.783 4766.306
+#>                   expr      min       lq      mean   median        uq
+#>  fpeek::file_head_show   53.287   63.233   72.9348   69.291   79.5925
+#>        base::readLines 1207.910 1217.325 1231.6455 1229.597 1246.7260
+#>           head command 4439.293 4496.327 4716.5932 4524.008 4626.3780
 #>       max neval
-#>    95.636    20
-#>  1336.652    20
-#>  5196.719    20
+#>   116.140    20
+#>  1263.609    20
+#>  7327.116    20
 ```

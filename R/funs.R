@@ -90,3 +90,28 @@ file_iconv <- function(path, from, to = "UTF-8") {
 }
 
 
+#' @export
+#' @title print the last lines of files
+#' @description print the last \code{n} lines
+#' of a file.
+#' @param path file path
+#' @param n number of lines to print
+#' @examples
+#' if( interactive() ){
+#'   f <- system.file(package = "fpeek",
+#'     "datafiles", "cigale-ISO-8859-1.txt")
+#'   file_less_show(f)
+#' }
+#' @section commands:
+#'
+#' type \code{q} to quit.
+#'
+#' type any key to see next lines.
+#'
+#' type \code{p} to see previous lines (not implemented yet).
+#' @rdname less
+#' @aliases less file_less
+file_less_show <- function(path, n = 6) {
+  stopifnot(interactive())
+  file_less_(path, n)
+}

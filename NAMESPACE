@@ -3,6 +3,7 @@
 export(file_head_char)
 export(file_head_show)
 export(file_iconv)
+export(file_less_show)
 export(file_nlines)
 export(file_tail_char)
 export(file_tail_show)

@@ -41,7 +41,8 @@ to have a glance at it helps to get those:
 
 * Use function `file_nlines()` to count lines contained in a file.
 * Functions `file_head_show()` and `file_tail_show()` will display 
-first and last lines of the file. 
+first and last lines of the file. Function `file_less` is reproducing 
+a basic `less` usage (available only in interactive mode).
 
 Sometimes encoding is an issue when files generated on a "Windows" machine 
 has to be used on a "Linux" machine. Function `file_iconv` will converts 

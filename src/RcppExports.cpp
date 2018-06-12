@@ -74,6 +74,17 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// file_less_
+void file_less_(std::string filename, int n);
+RcppExport SEXP _fpeek_file_less_(SEXP filenameSEXP, SEXP nSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type filename(filenameSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    file_less_(filename, n);
+    return R_NilValue;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_fpeek_file_nlines_", (DL_FUNC) &_fpeek_file_nlines_, 1},
@@ -82,6 +93,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_fpeek_file_tail_str_", (DL_FUNC) &_fpeek_file_tail_str_, 2},
     {"_fpeek_file_tail_print_", (DL_FUNC) &_fpeek_file_tail_print_, 2},
     {"_fpeek_file_iconv_", (DL_FUNC) &_fpeek_file_iconv_, 3},
+    {"_fpeek_file_less_", (DL_FUNC) &_fpeek_file_less_, 2},
     {NULL, NULL, 0}
 };
 
