@@ -3,6 +3,8 @@
 #include <errno.h>
 #include <sstream>
 #include <Rcpp.h>
+#include <regex>
+#include <string>
 using namespace Rcpp;
 
 
@@ -35,7 +37,7 @@ std::istream& get_line_crlf(std::istream& is, std::string& t)
 
 
 // [[Rcpp::export]]
-int file_nlines_(std::string filename) {
+int nlines_(std::string filename) {
   std::ifstream is(filename.c_str(), std::ifstream::binary);
   int count = 0;
   if( !is )
@@ -65,7 +67,7 @@ int file_nlines_(std::string filename) {
 
 
 // [[Rcpp::export]]
-std::vector< std::string> file_head_str_(std::string filename, int n) {
+std::vector< std::string> head_str_(std::string filename, int n) {
   std::fstream file(filename.c_str(), std::ios::in);
   std::string line;
   int counter = 0;
@@ -87,9 +89,9 @@ std::vector< std::string> file_head_str_(std::string filename, int n) {
 }
 
 // [[Rcpp::export]]
-void file_head_print_(std::string filename, int n) {
+void head_print_(std::string filename, int n) {
 
-  std::vector< std::string > head_str = file_head_str_(filename, n);
+  std::vector< std::string > head_str = head_str_(filename, n);
   for(size_t i = 0 ; i < head_str.size() ; i++ ){
     Rcout << head_str[i] << "\n";
   }
@@ -99,7 +101,7 @@ void file_head_print_(std::string filename, int n) {
 
 
 // [[Rcpp::export]]
-std::vector< std::string> file_tail_str_(std::string filename, int n) {
+std::vector< std::string> tail_str_(std::string filename, int n) {
   std::ifstream is(filename.c_str(), std::ifstream::binary);
 
   if( !is )
@@ -150,13 +152,34 @@ std::vector< std::string> file_tail_str_(std::string filename, int n) {
 
 
 // [[Rcpp::export]]
-void file_tail_print_(std::string filename, int n) {
-  std::vector< std::string> tail_str = file_tail_str_(filename, n);
+void tail_print_(std::string filename, int n) {
+  std::vector< std::string> tail_str = tail_str_(filename, n);
   for(size_t i = 0 ; i < tail_str.size() ; i++ ){
     Rcout << tail_str[i] << "\n";
   }
   return;
 }
+
+// [[Rcpp::export]]
+void grep_print_(std::string filename, std::string regexp) {
+  std::fstream file(filename.c_str(), std::ios::in);
+  std::string line;
+  std::regex pattern(regexp);
+
+  if(file.fail()) {
+    stop("could not find filename");
+  }
+
+  while(!get_line_crlf(file, line).eof()){
+    if(std::regex_search(line, pattern) )
+      Rcout << line << "\n";
+  }
+  file.close();
+
+  return;
+}
+
+
 
 std::string iconv_str(std::string str, std::string enc_from, std::string enc_to) {
 
@@ -231,7 +254,7 @@ void file_iconv_(std::string filename, std::string encoding, std::string encto )
 
 
 // [[Rcpp::export]]
-void file_less_(std::string filename, int n) {
+void less_(std::string filename, int n) {
   std::fstream file(filename.c_str(), std::ios::in);
   std::string line;
   int counter = 0;

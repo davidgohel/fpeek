@@ -31,7 +31,7 @@ The goal of fpeek is to help importation of text files from R.
 When a text file has unknown characteristics, beeing able to have a
 glance at it helps to get those:
 
-  - Use function `file_nlines()` to count lines contained in a file.
+  - Use function `wc_l()` to count lines contained in a file.
   - Functions `file_head_show()` and `file_tail_show()` will display
     first and last lines of the file. Function `file_less` is
     reproducing a basic `less` usage (available only in interactive
@@ -70,10 +70,10 @@ system(sprintf("wc -l %s", power_file), intern = TRUE)
 #> [1] "  420773 singleindex.csv"
 ```
 
-Using `file_nlines()`
+Using `wc_l()`
 
 ``` r
-file_nlines(power_file)
+wc_l(power_file)
 #> [1] 420773
 ```
 
@@ -132,7 +132,7 @@ file_head_char(la_cigale, n = 4)
 #> [1] "La Cigale et la Fourmi"     ""                          
 #> [3] "La Cigale, ayant chant\xe9" "Tout l'\xe9t\xe9,"
 
-file_iconv(la_cigale, from = "WINDOWS-1252", to = "UTF-8")
+file_iconv_show(la_cigale, from = "WINDOWS-1252", to = "UTF-8")
 #> La Cigale et la Fourmi
 #> 
 #> La Cigale, ayant chanté
@@ -159,30 +159,26 @@ file_iconv(la_cigale, from = "WINDOWS-1252", to = "UTF-8")
 #> Eh bien! dansez maintenant.
 ```
 
-Function `file_iconv()` is converting the content of the file and print
-the result in the console. Use `sink()` to create a file:
+Function `file_iconv_show()` is converting the content of the file and
+print the result in the console. Use `file_iconv_write()` to create a
+new reencoded file:
 
 ``` r
 file_utf8 <- tempfile()
-
-file_con <- file( file_utf8, open = "wt", encoding = "UTF-8")
-
-sink(file = file_con)
-file_iconv(la_cigale, from = "WINDOWS-1252", to = "UTF-8")
-sink()
-
-close(file_con)
+file_iconv_write(path = la_cigale, newfile = file_utf8, 
+  from = "WINDOWS-1252", to = "UTF-8")
+#> [1] "/var/folders/51/6jygptvs3bb4njv0t6x7br900000gn/T//RtmpLXtMdk/file4c07a3e3ca1"
 ```
 
 ## Comparing speed with other methods:
 
-### `file_nlines`
+> function `wc_l`
 
 ``` r
 library(microbenchmark)
 
 benchmark <- microbenchmark(times = 20, 
-  "fpeek::file_nlines" = { file_nlines(power_file) },
+  "fpeek::wc_l" = { wc_l(power_file) },
   "R.utils::countLines" = { R.utils::countLines(power_file) }, 
   "wc command" = { system(sprintf("wc -l %s", power_file), intern = TRUE) }
   )
@@ -190,16 +186,16 @@ benchmark <- microbenchmark(times = 20,
 benchmark
 #> Unit: milliseconds
 #>                 expr       min        lq      mean    median        uq
-#>   fpeek::file_nlines  290.1503  291.3008  293.1986  292.1750  292.9568
-#>  R.utils::countLines 3045.2545 3102.7481 3172.7320 3156.0963 3199.7056
-#>           wc command  109.7969  111.5826  112.4442  111.9426  112.5651
+#>          fpeek::wc_l  282.4091  284.3698  291.4240  288.1993  299.0682
+#>  R.utils::countLines 2913.9760 2974.8871 3032.2352 3014.4298 3074.6154
+#>           wc command  106.2395  108.0034  110.9642  110.2417  113.2166
 #>        max neval
-#>   305.8739    20
-#>  3545.6025    20
-#>   120.2334    20
+#>   308.2205    20
+#>  3254.8114    20
+#>   121.3721    20
 ```
 
-### `file_head_show`
+> function `file_head_show`
 
 ``` r
 library(microbenchmark)
@@ -213,12 +209,12 @@ benchmark <- microbenchmark(times = 20,
 ``` r
 benchmark
 #> Unit: microseconds
-#>                   expr      min       lq      mean   median        uq
-#>  fpeek::file_head_show   53.287   63.233   72.9348   69.291   79.5925
-#>        base::readLines 1207.910 1217.325 1231.6455 1229.597 1246.7260
-#>           head command 4439.293 4496.327 4716.5932 4524.008 4626.3780
+#>                   expr      min       lq      mean    median        uq
+#>  fpeek::file_head_show   50.023   61.509   74.7807   68.7555   83.9775
+#>        base::readLines 1195.054 1207.669 1242.1771 1231.0525 1247.8950
+#>           head command 4636.444 4757.171 5141.6427 4942.2470 5218.3600
 #>       max neval
-#>   116.140    20
-#>  1263.609    20
-#>  7327.116    20
+#>   127.631    20
+#>  1432.014    20
+#>  7539.492    20
 ```

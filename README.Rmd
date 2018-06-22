@@ -39,7 +39,7 @@ The goal of fpeek is to help importation of text files from R.
 When a text file has unknown characteristics, beeing able 
 to have a glance at it helps to get those:
 
-* Use function `file_nlines()` to count lines contained in a file.
+* Use function `wc_l()` to count lines contained in a file.
 * Functions `file_head_show()` and `file_tail_show()` will display 
 first and last lines of the file. Function `file_less` is reproducing 
 a basic `less` usage (available only in interactive mode).
@@ -77,10 +77,10 @@ Using `wc -l`
 system(sprintf("wc -l %s", power_file), intern = TRUE)
 ```
 
-Using `file_nlines()`
+Using `wc_l()`
 
 ```{r 'nlines-ex'}
-file_nlines(power_file)
+wc_l(power_file)
 ```
 
 ### Show first and last lines of a file
@@ -117,34 +117,28 @@ la_cigale <- system.file(package = "fpeek", "datafiles",
   "cigale-ISO-8859-1.txt")
 file_head_char(la_cigale, n = 4)
 
-file_iconv(la_cigale, from = "WINDOWS-1252", to = "UTF-8")
+file_iconv_show(la_cigale, from = "WINDOWS-1252", to = "UTF-8")
 ```
 
-Function `file_iconv()` is converting the content of the file 
-and print the result in the console. Use `sink()` to create 
-a file:
+Function `file_iconv_show()` is converting the content of the file 
+and print the result in the console. Use `file_iconv_write()` to create 
+a new reencoded file:
 
-```{r 'file-iconv-sink-ex', eval=FALSE}
+```{r 'file-iconv-sink-ex'}
 file_utf8 <- tempfile()
-
-file_con <- file( file_utf8, open = "wt", encoding = "UTF-8")
-
-sink(file = file_con)
-file_iconv(la_cigale, from = "WINDOWS-1252", to = "UTF-8")
-sink()
-
-close(file_con)
+file_iconv_write(path = la_cigale, newfile = file_utf8, 
+  from = "WINDOWS-1252", to = "UTF-8")
 ```
 
 ## Comparing speed with other methods:
 
-### `file_nlines`
+> function `wc_l`
 
 ```{r 'bench-nlines', message=FALSE, warning=FALSE}
 library(microbenchmark)
 
 benchmark <- microbenchmark(times = 20, 
-  "fpeek::file_nlines" = { file_nlines(power_file) },
+  "fpeek::wc_l" = { wc_l(power_file) },
   "R.utils::countLines" = { R.utils::countLines(power_file) }, 
   "wc command" = { system(sprintf("wc -l %s", power_file), intern = TRUE) }
   )
@@ -152,7 +146,8 @@ benchmark <- microbenchmark(times = 20,
 benchmark
 ```
 
-### `file_head_show`
+> function `file_head_show`
+
 
 ```{r 'bench-head-show', message=FALSE, warning=FALSE, results='hide'}
 library(microbenchmark)
