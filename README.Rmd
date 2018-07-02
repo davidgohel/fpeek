@@ -14,6 +14,14 @@ knitr::opts_chunk$set(
 library(flextable)
 ```
 
+[![Travis-CI Build Status](https://travis-ci.org/davidgohel/fpeek.svg?branch=master)](https://travis-ci.org/davidgohel/fpeek)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/davidgohel/fpeek?branch=master&svg=true)](https://ci.appveyor.com/project/davidgohel/fpeek)
+[![version](http://www.r-pkg.org/badges/version/fpeek)](https://CRAN.R-project.org/package=fpeek)
+![cranlogs](http://cranlogs.r-pkg.org./badges/fpeek)
+[![Coverage status](https://codecov.io/gh/davidgohel/fpeek/branch/master/graph/badge.svg)](https://codecov.io/github/davidgohel/fpeek?branch=master)
+![Active](http://www.repostatus.org/badges/latest/wip.svg)
+
+
 <p align="center">
   <img width="15%" src="http://www.ardata.fr/images/fpeek.svg">
 </p>

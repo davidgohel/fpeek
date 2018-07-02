@@ -1,6 +1,14 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+[![Travis-CI Build Status](https://travis-ci.org/davidgohel/fpeek.svg?branch=master)](https://travis-ci.org/davidgohel/fpeek)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/davidgohel/fpeek?branch=master&svg=true)](https://ci.appveyor.com/project/davidgohel/fpeek)
+[![version](http://www.r-pkg.org/badges/version/fpeek)](https://CRAN.R-project.org/package=fpeek)
+![cranlogs](http://cranlogs.r-pkg.org./badges/fpeek)
+[![Coverage status](https://codecov.io/gh/davidgohel/fpeek/branch/master/graph/badge.svg)](https://codecov.io/github/davidgohel/fpeek?branch=master)
+![Active](http://www.repostatus.org/badges/latest/wip.svg)
+
+
 <p align="center">
 
 <img width="15%" src="http://www.ardata.fr/images/fpeek.svg">
@@ -167,7 +175,7 @@ new reencoded file:
 file_utf8 <- tempfile()
 file_iconv_write(path = la_cigale, newfile = file_utf8, 
   from = "WINDOWS-1252", to = "UTF-8")
-#> [1] "/var/folders/51/6jygptvs3bb4njv0t6x7br900000gn/T//RtmpLXtMdk/file4c07a3e3ca1"
+#> [1] "/var/folders/51/6jygptvs3bb4njv0t6x7br900000gn/T//RtmpTycqlC/file10c0778c7b6e3"
 ```
 
 ## Comparing speed with other methods:
@@ -186,13 +194,13 @@ benchmark <- microbenchmark(times = 20,
 benchmark
 #> Unit: milliseconds
 #>                 expr       min        lq      mean    median        uq
-#>          fpeek::wc_l  282.4091  284.3698  291.4240  288.1993  299.0682
-#>  R.utils::countLines 2913.9760 2974.8871 3032.2352 3014.4298 3074.6154
-#>           wc command  106.2395  108.0034  110.9642  110.2417  113.2166
+#>          fpeek::wc_l  296.8166  297.7562  299.4809  298.9348  300.7419
+#>  R.utils::countLines 3252.3943 3318.5722 3400.4409 3384.0658 3448.2349
+#>           wc command  115.4304  117.3825  118.0498  117.7931  119.0359
 #>        max neval
-#>   308.2205    20
-#>  3254.8114    20
-#>   121.3721    20
+#>   304.0394    20
+#>  3673.5966    20
+#>   121.2193    20
 ```
 
 > function `file_head_show`
@@ -209,12 +217,12 @@ benchmark <- microbenchmark(times = 20,
 ``` r
 benchmark
 #> Unit: microseconds
-#>                   expr      min       lq      mean    median        uq
-#>  fpeek::file_head_show   50.023   61.509   74.7807   68.7555   83.9775
-#>        base::readLines 1195.054 1207.669 1242.1771 1231.0525 1247.8950
-#>           head command 4636.444 4757.171 5141.6427 4942.2470 5218.3600
+#>                   expr      min        lq      mean    median        uq
+#>  fpeek::file_head_show   50.537   58.4075   71.8112   64.5775   83.3045
+#>        base::readLines 1207.086 1236.0560 1259.3234 1255.9605 1277.5270
+#>           head command 4553.111 4727.1635 4939.0040 4893.4520 5112.6955
 #>       max neval
-#>   127.631    20
-#>  1432.014    20
-#>  7539.492    20
+#>   115.180    20
+#>  1394.305    20
+#>  5752.600    20
 ```
