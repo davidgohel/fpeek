@@ -36,7 +36,7 @@ std::istream& get_line_crlf(std::istream& is, std::string& t)
 
 
 // [[Rcpp::export]]
-int nlines_(std::string filename) {
+int nlines_(std::string filename, bool with_eof) {
   std::ifstream is(filename.c_str(), std::ifstream::binary);
   int count = 0;
   if( !is )
@@ -55,7 +55,8 @@ int nlines_(std::string filename) {
       }
       count++;
     } else if( c == std::streambuf::traits_type::eof() ){
-      // count++;
+      if(with_eof)
+        count++;
       break;
     }
   }

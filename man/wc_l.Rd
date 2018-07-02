@@ -4,17 +4,21 @@
 \alias{wc_l}
 \title{number of lines of a file}
 \usage{
-wc_l(path)
+wc_l(path, with_eof = FALSE)
 }
 \arguments{
 \item{path}{file path}
+
+\item{with_eof}{count the end of file as
+a new line.}
 }
 \value{
 number of lines as an integer
 }
 \description{
 return the number of lines
-found in a file.
+found in a file. Operation is counting the
+number of new line symbols in the file.
 }
 \examples{
 f <- system.file(package = "fpeek",

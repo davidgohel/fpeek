@@ -6,13 +6,14 @@
 using namespace Rcpp;
 
 // nlines_
-int nlines_(std::string filename);
-RcppExport SEXP _fpeek_nlines_(SEXP filenameSEXP) {
+int nlines_(std::string filename, bool with_eof);
+RcppExport SEXP _fpeek_nlines_(SEXP filenameSEXP, SEXP with_eofSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type filename(filenameSEXP);
-    rcpp_result_gen = Rcpp::wrap(nlines_(filename));
+    Rcpp::traits::input_parameter< bool >::type with_eof(with_eofSEXP);
+    rcpp_result_gen = Rcpp::wrap(nlines_(filename, with_eof));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -87,7 +88,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_fpeek_nlines_", (DL_FUNC) &_fpeek_nlines_, 1},
+    {"_fpeek_nlines_", (DL_FUNC) &_fpeek_nlines_, 2},
     {"_fpeek_head_str_", (DL_FUNC) &_fpeek_head_str_, 2},
     {"_fpeek_head_print_", (DL_FUNC) &_fpeek_head_print_, 2},
     {"_fpeek_tail_str_", (DL_FUNC) &_fpeek_tail_str_, 2},

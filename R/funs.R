@@ -3,15 +3,18 @@
 #' @export
 #' @title number of lines of a file
 #' @description return the number of lines
-#' found in a file.
+#' found in a file. Operation is counting the
+#' number of new line symbols in the file.
 #' @param path file path
+#' @param with_eof count the end of file as
+#' a new line.
 #' @return number of lines as an integer
 #' @examples
 #' f <- system.file(package = "fpeek",
 #'   "datafiles", "cigale-ISO-8859-1.txt")
 #' wc_l(f)
-wc_l <- function(path) {
-  nlines_(path)
+wc_l <- function(path, with_eof = FALSE ) {
+  nlines_(path, with_eof = with_eof)
 }
 
 
