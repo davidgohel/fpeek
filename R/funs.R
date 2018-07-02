@@ -14,23 +14,6 @@ wc_l <- function(path) {
   nlines_(path)
 }
 
-#' @export
-#' @title grep a file and print the results
-#' @description print lines
-#' of a file matching a regular expression.
-#' @param path file path
-#' @param regexp regular expression as a string
-#' @examples
-#' f <- system.file(package = "fpeek",
-#'                  "datafiles", "cigale-ISO-8859-1.txt")
-#' file_grep_show(f, regexp = "([C|c]igale|fut)")
-#' file_grep_show(f, regexp = "[^i]er")
-#' @rdname grep
-#' @aliases grep file_grep
-file_grep_show <- function(path, regexp) {
-  grep_print_(path, regexp)
-}
-
 
 #' @export
 #' @title print the first lines of files

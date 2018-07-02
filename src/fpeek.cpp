@@ -3,7 +3,6 @@
 #include <errno.h>
 #include <sstream>
 #include <Rcpp.h>
-#include <regex>
 #include <string>
 using namespace Rcpp;
 
@@ -160,24 +159,6 @@ void tail_print_(std::string filename, int n) {
   return;
 }
 
-// [[Rcpp::export]]
-void grep_print_(std::string filename, std::string regexp) {
-  std::fstream file(filename.c_str(), std::ios::in);
-  std::string line;
-  std::regex pattern(regexp);
-
-  if(file.fail()) {
-    stop("could not find filename");
-  }
-
-  while(!get_line_crlf(file, line).eof()){
-    if(std::regex_search(line, pattern) )
-      Rcout << line << "\n";
-  }
-  file.close();
-
-  return;
-}
 
 
 

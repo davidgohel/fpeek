@@ -62,17 +62,6 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// grep_print_
-void grep_print_(std::string filename, std::string regexp);
-RcppExport SEXP _fpeek_grep_print_(SEXP filenameSEXP, SEXP regexpSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type filename(filenameSEXP);
-    Rcpp::traits::input_parameter< std::string >::type regexp(regexpSEXP);
-    grep_print_(filename, regexp);
-    return R_NilValue;
-END_RCPP
-}
 // file_iconv_
 void file_iconv_(std::string filename, std::string encoding, std::string encto);
 RcppExport SEXP _fpeek_file_iconv_(SEXP filenameSEXP, SEXP encodingSEXP, SEXP enctoSEXP) {
@@ -103,7 +92,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_fpeek_head_print_", (DL_FUNC) &_fpeek_head_print_, 2},
     {"_fpeek_tail_str_", (DL_FUNC) &_fpeek_tail_str_, 2},
     {"_fpeek_tail_print_", (DL_FUNC) &_fpeek_tail_print_, 2},
-    {"_fpeek_grep_print_", (DL_FUNC) &_fpeek_grep_print_, 2},
     {"_fpeek_file_iconv_", (DL_FUNC) &_fpeek_file_iconv_, 3},
     {"_fpeek_less_", (DL_FUNC) &_fpeek_less_, 2},
     {NULL, NULL, 0}

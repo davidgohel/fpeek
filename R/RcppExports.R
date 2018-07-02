@@ -21,10 +21,6 @@ tail_print_ <- function(filename, n) {
     invisible(.Call('_fpeek_tail_print_', PACKAGE = 'fpeek', filename, n))
 }
 
-grep_print_ <- function(filename, regexp) {
-    invisible(.Call('_fpeek_grep_print_', PACKAGE = 'fpeek', filename, regexp))
-}
-
 file_iconv_ <- function(filename, encoding, encto) {
     invisible(.Call('_fpeek_file_iconv_', PACKAGE = 'fpeek', filename, encoding, encto))
 }
