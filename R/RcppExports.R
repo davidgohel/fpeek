@@ -25,7 +25,3 @@ file_iconv_ <- function(filename, encoding, encto) {
     invisible(.Call('_fpeek_file_iconv_', PACKAGE = 'fpeek', filename, encoding, encto))
 }
 
-less_ <- function(filename, n) {
-    invisible(.Call('_fpeek_less_', PACKAGE = 'fpeek', filename, n))
-}
-

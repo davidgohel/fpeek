@@ -235,29 +235,3 @@ void file_iconv_(std::string filename, std::string encoding, std::string encto )
 
 
 
-// [[Rcpp::export]]
-void less_(std::string filename, int n) {
-  std::fstream file(filename.c_str(), std::ios::in);
-  std::string line;
-  int counter = 0;
-
-  Environment base = Environment("package:base");
-  Function readline = base["readline"];
-
-  if(file.fail()) {
-    stop("could not find filename");
-  }
-
-  while(!get_line_crlf(file, line).eof()){
-    if( (counter % n ) < 1 && counter > 0 ) {
-      std::string msg = as<std::string>(readline("quit('q')> "));
-      if( msg == "q") break;
-    }
-    ++counter;
-    Rcout << line << "\n";
-  }
-  file.close();
-  return ;
-}
-
-
