@@ -3,7 +3,7 @@ context("iconv tests")
 file <- system.file(package = "fpeek", "datafiles", "cigale-ISO-8859-1.txt")
 
 test_that("ckeck head output", {
-
+  skip_on_os("windows")
   file_utf8 <- tempfile()
   file_iconv_write(path = file, newfile = file_utf8, from = "WINDOWS-1252", to = "UTF-8")
 
