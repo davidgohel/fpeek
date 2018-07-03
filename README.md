@@ -1,13 +1,13 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-[![Travis-CI Build Status](https://travis-ci.org/davidgohel/fpeek.svg?branch=master)](https://travis-ci.org/davidgohel/fpeek)
-[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/davidgohel/fpeek?branch=master&svg=true)](https://ci.appveyor.com/project/davidgohel/fpeek)
+[![Travis-CI Build
+Status](https://travis-ci.org/davidgohel/fpeek.svg?branch=master)](https://travis-ci.org/davidgohel/fpeek)
+[![AppVeyor build
+status](https://ci.appveyor.com/api/projects/status/github/davidgohel/fpeek?branch=master&svg=true)](https://ci.appveyor.com/project/davidgohel/fpeek)
 [![version](http://www.r-pkg.org/badges/version/fpeek)](https://CRAN.R-project.org/package=fpeek)
-![cranlogs](http://cranlogs.r-pkg.org./badges/fpeek)
-[![Coverage status](https://codecov.io/gh/davidgohel/fpeek/branch/master/graph/badge.svg)](https://codecov.io/github/davidgohel/fpeek?branch=master)
-![Active](http://www.repostatus.org/badges/latest/wip.svg)
-
+![cranlogs](http://cranlogs.r-pkg.org./badges/fpeek) [![Coverage
+status](https://codecov.io/gh/davidgohel/fpeek/branch/master/graph/badge.svg)](https://codecov.io/github/davidgohel/fpeek?branch=master)
 
 <p align="center">
 
@@ -41,9 +41,7 @@ glance at it helps to get those:
 
   - Use function `wc_l()` to count lines contained in a file.
   - Functions `file_head_show()` and `file_tail_show()` will display
-    first and last lines of the file. Function `file_less` is
-    reproducing a basic `less` usage (available only in interactive
-    mode).
+    first and last lines of the file.
 
 Sometimes encoding is an issue when files generated on a “Windows”
 machine has to be used on a “Linux” machine. Function `file_iconv` will
@@ -55,7 +53,7 @@ converts file content in one encoding to another encoding.
 devtools::install_github("davidgohel/fpeek")
 ```
 
-## Example
+## Examples
 
 First download an example file, the file is containing lot of times
 series about power system and has lot of lines.
@@ -175,10 +173,10 @@ new reencoded file:
 file_utf8 <- tempfile()
 file_iconv_write(path = la_cigale, newfile = file_utf8, 
   from = "WINDOWS-1252", to = "UTF-8")
-#> [1] "/var/folders/51/6jygptvs3bb4njv0t6x7br900000gn/T//RtmpTycqlC/file10c0778c7b6e3"
+#> [1] "/var/folders/51/6jygptvs3bb4njv0t6x7br900000gn/T//Rtmp2jzn4X/file937f14aa53f1"
 ```
 
-## Comparing speed with other methods:
+## Comparing speed with original tools:
 
 > function `wc_l`
 
@@ -186,21 +184,15 @@ file_iconv_write(path = la_cigale, newfile = file_utf8,
 library(microbenchmark)
 
 benchmark <- microbenchmark(times = 20, 
-  "fpeek::wc_l" = { wc_l(power_file) },
-  "R.utils::countLines" = { R.utils::countLines(power_file) }, 
-  "wc command" = { system(sprintf("wc -l %s", power_file), intern = TRUE) }
+  "wc_l" = { wc_l(power_file) },
+  "wc -l command" = { system(sprintf("wc -l %s", power_file), intern = TRUE) }
   )
 
 benchmark
 #> Unit: milliseconds
-#>                 expr       min        lq      mean    median        uq
-#>          fpeek::wc_l  296.8166  297.7562  299.4809  298.9348  300.7419
-#>  R.utils::countLines 3252.3943 3318.5722 3400.4409 3384.0658 3448.2349
-#>           wc command  115.4304  117.3825  118.0498  117.7931  119.0359
-#>        max neval
-#>   304.0394    20
-#>  3673.5966    20
-#>   121.2193    20
+#>           expr      min       lq     mean   median       uq      max neval
+#>           wc_l 302.3910 303.5159 306.6329 304.4295 305.6819 327.7959    20
+#>  wc -l command 113.7994 115.3501 117.3791 116.1931 118.2554 126.5107    20
 ```
 
 > function `file_head_show`
@@ -208,21 +200,39 @@ benchmark
 ``` r
 library(microbenchmark)
 benchmark <- microbenchmark(times = 20, 
-  "fpeek::file_head_show" = { file_head_show(power_file, n = 5) },
-  "base::readLines" = { print(readLines(power_file, n = 5)) }, 
-  "head command" = { print(system(sprintf("head -n 5 %s", power_file), intern = TRUE)) }
+  "file_head_show" = { file_head_show(power_file, n = 5) },
+  "head command" = { system(sprintf("head -n 5 %s", power_file), intern = FALSE) }
   )
 ```
 
 ``` r
 benchmark
 #> Unit: microseconds
-#>                   expr      min        lq      mean    median        uq
-#>  fpeek::file_head_show   50.537   58.4075   71.8112   64.5775   83.3045
-#>        base::readLines 1207.086 1236.0560 1259.3234 1255.9605 1277.5270
-#>           head command 4553.111 4727.1635 4939.0040 4893.4520 5112.6955
-#>       max neval
-#>   115.180    20
-#>  1394.305    20
-#>  5752.600    20
+#>            expr      min        lq       mean   median       uq      max
+#>  file_head_show   50.477   53.5955   79.83365   83.393  102.172  114.204
+#>    head command 3288.259 3335.7355 3704.75745 3628.610 3934.934 4463.540
+#>  neval
+#>     20
+#>     20
+```
+
+> function `file_tail_show`
+
+``` r
+library(microbenchmark)
+benchmark <- microbenchmark(times = 20, 
+  "file_tail_show" = { file_tail_show(power_file, n = 5) },
+  "tail command" = { system(sprintf("tail -n 5 %s", power_file), intern = FALSE) }
+  )
+```
+
+``` r
+benchmark
+#> Unit: milliseconds
+#>            expr       min        lq      mean   median        uq       max
+#>  file_tail_show  27.34717  27.75713  28.42203  28.2313  28.86679  30.85281
+#>    tail command 131.52618 132.65152 133.55235 133.7507 134.21120 135.58248
+#>  neval
+#>     20
+#>     20
 ```

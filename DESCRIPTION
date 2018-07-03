@@ -1,7 +1,7 @@
 Package: fpeek
 Type: Package
 Title: Check Text Files Content at a Glance
-Version: 0.0.3.002
+Version: 0.1.0
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"))
@@ -11,7 +11,7 @@ Description: Tools to help text files importation. It can return
  Operations are made without reading the entire file before 
  starting, resulting in good performances with large files. This 
  package provides an alternative to a simple use of the 'head', 
- 'tail', 'wc', 'iconv' and 'less' programs that are not always 
+ 'tail', 'wc' and 'iconv' programs that are not always 
  available on machine where R is installed.
 License: MIT + file LICENSE
 Encoding: UTF-8
