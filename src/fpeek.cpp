@@ -102,7 +102,7 @@ void head_print_(std::string filename, int n) {
 
 // [[Rcpp::export]]
 std::vector< std::string> tail_str_(std::string filename, int n) {
-  std::ifstream is(filename.c_str(), std::ifstream::binary);
+  std::fstream is(filename.c_str(), std::ios::in);
 
   if( !is )
     stop("error while opening filename");
@@ -138,7 +138,7 @@ std::vector< std::string> tail_str_(std::string filename, int n) {
     // pos to last size value + 2 to match the beg of last n lines
     is.seekg (size-filesize+2, is.end);
   }
-  std::vector<std::string> out;
+  std::vector<std::string> out(0);
 
   std::string line;
   while(!get_line_crlf(is, line).eof()){
