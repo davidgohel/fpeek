@@ -112,12 +112,13 @@ std::vector< std::string> tail_str_(std::string filename, int n) {
   int size = filesize;
   int match = 0;
 
-  char *c = new char[1];
+  char *c = new char[2];
   int last_isr = 0;
   while (size-- && match <= n) {
     is.seekg (size, std::ios::beg);
 
     if( is.read(c, 1) ) {
+      c[1] = '\0';
       if ( std::strcmp(c, "\n") == 0 ){
         match++;
         last_isr = 1;
