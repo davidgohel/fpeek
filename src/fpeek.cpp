@@ -102,7 +102,7 @@ void head_print_(std::string filename, int n) {
 
 // [[Rcpp::export]]
 std::vector< std::string> tail_str_(std::string filename, int n) {
-  std::fstream is(filename.c_str(), std::ios::in);
+  std::ifstream is(filename.c_str(), std::ifstream::binary);
 
   if( !is )
     stop("error while opening filename");
