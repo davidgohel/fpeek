@@ -46,8 +46,8 @@ The goal of fpeek is to help importation of text files from R.
 When a text file has unknown characteristics, beeing able 
 to have a glance at it helps to get those:
 
-* Use function `wc_l()` to count lines contained in a file.
-* Functions `file_head_show()` and `file_tail_show()` will display 
+* Use function `peek_count_lines()` to count lines contained in a file.
+* Functions `peek_head()` and `peek_tail()` will display 
 first and last lines of the file. 
 
 Sometimes encoding is an issue when files generated on a "Windows" machine 
@@ -83,81 +83,68 @@ Using `wc -l`
 system(sprintf("wc -l %s", power_file), intern = TRUE)
 ```
 
-Using `wc_l()`
+Using `peek_count_lines()`
 
 ```{r 'nlines-ex'}
-wc_l(power_file)
+peek_count_lines(power_file)
 ```
 
 ### Show first and last lines of a file
 
-The first lines can be printed in the console with function `file_head_show()`. 
+The first lines can be printed in the console with function `peek_head()`. 
 
 ```{r 'head-show-ex'}
-file_head_show(power_file, n = 4)
+peek_head(power_file, n = 4)
 ```
 
-`file_head_char()` is also provided to get the first lines as a character vector.
-
-```{r 'head-char-ex'}
-file_head_char(power_file, n = 4)
-```
-
-The last lines can be printed in the console with function `file_tail_show()`. 
+The last lines can be printed in the console with function `peek_tail()`. 
 
 ```{r 'tail-show-ex'}
-file_tail_show(power_file, n = 4)
+peek_tail(power_file, n = 4)
 ```
-
-`file_tail_char()` is also provided to get the last lines as a character vector.
-
-```{r 'tail-char-ex'}
-file_tail_char(power_file, n = 4)
-```
-
 
 ### File reencoding
 
 ```{r 'file-iconv-ex'}
 la_cigale <- system.file(package = "fpeek", "datafiles", 
   "cigale-ISO-8859-1.txt")
-file_head_char(la_cigale, n = 4)
+peek_head(path = la_cigale, n = 4, intern = TRUE)
 
-file_iconv_show(la_cigale, from = "WINDOWS-1252", to = "UTF-8")
+peek_iconv(la_cigale, from = "WINDOWS-1252", to = "UTF-8")
 ```
 
-Function `file_iconv_show()` is converting the content of the file 
-and print the result in the console. Use `file_iconv_write()` to create 
+Function `peek_iconv()` is converting the content of the file 
+and print the result in the console. Use `peek_iconv(newfile = "...")` to create 
 a new reencoded file:
 
 ```{r 'file-iconv-sink-ex'}
 file_utf8 <- tempfile()
-file_iconv_write(path = la_cigale, newfile = file_utf8, 
+peek_iconv(path = la_cigale, newfile = file_utf8, 
   from = "WINDOWS-1252", to = "UTF-8")
 ```
 
 ## Comparing speed with original tools:
 
-> function `wc_l`
+> function `peek_count_lines`
 
 ```{r 'bench-nlines', message=FALSE, warning=FALSE}
 library(microbenchmark)
 
 benchmark <- microbenchmark(times = 20, 
-  "wc_l" = { wc_l(power_file) },
+  "peek_count_lines" = { peek_count_lines(power_file) },
   "wc -l command" = { system(sprintf("wc -l %s", power_file), intern = TRUE) }
   )
 
 benchmark
 ```
 
-> function `file_head_show`
+> function `peek_head`
 
 
 ```{r 'bench-head-show', message=FALSE, warning=FALSE, results='hide'}
 library(microbenchmark)
 benchmark <- microbenchmark(times = 20, 
-  "file_head_show" = { file_head_show(power_file, n = 5) },
+  "peek_head" = { peek_head(power_file, n = 5) },
   "head command" = { system(sprintf("head -n 5 %s", power_file), intern = FALSE) }
   )
 ```
@@ -166,13 +153,13 @@ benchmark <- microbenchmark(times = 20,
 benchmark
 ```
 
-> function `file_tail_show`
+> function `peek_tail`
 
 
 ```{r 'bench-tail-show', message=FALSE, warning=FALSE, results='hide'}
 library(microbenchmark)
 benchmark <- microbenchmark(times = 20, 
-  "file_tail_show" = { file_tail_show(power_file, n = 5) },
+  "peek_tail" = { peek_tail(power_file, n = 5) },
   "tail command" = { system(sprintf("tail -n 5 %s", power_file), intern = FALSE) }
   )
 ```

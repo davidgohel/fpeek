@@ -12,8 +12,8 @@
 #' @examples
 #' f <- system.file(package = "fpeek",
 #'   "datafiles", "cigale-ISO-8859-1.txt")
-#' wc_l(f)
-wc_l <- function(path, with_eof = FALSE ) {
+#' peek_count_lines(f)
+peek_count_lines <- function(path, with_eof = FALSE ) {
   nlines_(path, with_eof = with_eof)
 }
 
@@ -24,44 +24,33 @@ wc_l <- function(path, with_eof = FALSE ) {
 #' of a file.
 #' @param path file path
 #' @param n number of lines to print
+#' @param intern a logical which indicates whether to capture
+#' the output as an R character vector or to print the output
+#' in the R console.
 #' @examples
 #' f <- system.file(package = "fpeek",
 #'   "datafiles", "cigale-ISO-8859-1.txt")
-#' file_head_show(f, n = 4)
-#' file_head_char(f, n = 4)
-#' @rdname head
-#' @aliases head file_head
-file_head_show <- function(path, n = 10) {
-  head_print_(path, n)
+#' peek_head(f, n = 4)
+#' peek_head(f, n = 4, intern = TRUE)
+peek_head <- function(path, n = 10, intern = FALSE) {
+  if( !intern ) head_print_(path, n)
+  else head_str_(path, n)
 }
 
-
-#' @export
-#' @rdname head
-file_head_char <- function(path, n = 10) {
-  head_str_(path, n)
-}
 
 #' @export
 #' @title print the last lines of files
 #' @description print the last \code{n} lines
 #' of a file.
-#' @param path file path
-#' @param n number of lines to print
+#' @inheritParams peek_head
 #' @examples
 #' f <- system.file(package = "fpeek",
 #'   "datafiles", "cigale-ISO-8859-1.txt")
-#' file_tail_show(f, n = 4)
-#' file_tail_char(f, n = 4)
-#' @rdname tail
-#' @aliases tail file_tail
-file_tail_show <- function(path, n = 10) {
-  tail_print_(path, n)
-}
-#' @export
-#' @rdname tail
-file_tail_char <- function(path, n = 10) {
-  tail_str_(path, n)
+#' peek_tail(f, n = 4)
+#' peek_tail(f, n = 4, intern = TRUE)
+peek_tail <- function(path, n = 10, intern = FALSE) {
+  if( !intern ) tail_print_(path, n)
+  else tail_str_(path, n)
 }
 
 
@@ -74,47 +63,38 @@ file_tail_char <- function(path, n = 10) {
 #' is encoded.
 #' @param to the code set to which the output is
 #' to be converted.
+#' @param newfile result file. Default to NULL. If null the
+#' result will be print in the R console, otherwise a
+#' file is produced containing the result.
 #' @examples
 #' la_cigale <- system.file(package = "fpeek", "datafiles",
 #'   "cigale-ISO-8859-1.txt")
 #'
-#' file_head_show(la_cigale)
-#' file_iconv_show(la_cigale, from = "ISO-8859-1", to = "UTF-8")
+#' peek_head(la_cigale)
+#' peek_iconv(la_cigale, from = "ISO-8859-1", to = "UTF-8")
 #'
 #' file <- system.file(package = "fpeek", "datafiles",
 #'   "Windows_1252.txt")
-#' file_head_show(file)
-#' file_iconv_show(file, from = "WINDOWS-1252", to = "UTF-8")
+#' peek_head(file)
+#' peek_iconv(file, from = "WINDOWS-1252", to = "UTF-8")
 #'
 #' file <- system.file(package = "fpeek", "datafiles",
 #'   "UTF16_BE.txt")
-#' file_head_show(file)
-#' file_iconv_show(file, from = "UTF-16", to = "UTF-8")
-#' @rdname iconv
-#' @aliases iconv file_iconv
-file_iconv_show <- function(path, from, to = "UTF-8") {
-  file_iconv_(path, from, to )
+#' peek_head(file)
+#' peek_iconv(file, from = "UTF-16", to = "UTF-8")
+peek_iconv <- function(path, from, to = "UTF-8", newfile = NULL) {
+  if( is.null(newfile) ){
+    file_iconv_(path, from, to )
+  } else {
+    file_con <- file( newfile, open = "wt", encoding = to)
+    sink(file = file_con)
+    file_iconv_(path, from, to )
+    sink()
+    close(file_con)
+    newfile
+  }
+
 }
 
-#' @export
-#' @rdname iconv
-#' @param newfile result file
-#' @examples
-#' la_cigale <- system.file(package = "fpeek", "datafiles",
-#'   "cigale-ISO-8859-1.txt")
-#'
-#' file_utf8 <- tempfile()
-#' file_iconv_write(path = la_cigale, newfile = file_utf8,
-#'   from = "WINDOWS-1252", to = "UTF-8")
-#'
-file_iconv_write <- function(path, newfile, from, to = "UTF-8") {
-
-  file_con <- file( newfile, open = "wt", encoding = to)
-  sink(file = file_con)
-  file_iconv_show(path, from = from, to = to)
-  sink()
-  close(file_con)
-  newfile
-}
 
 

@@ -4,12 +4,12 @@ f1 <- system.file(package = "fpeek", "datafiles", "cigale-ISO-8859-1.txt")
 f2 <- system.file(package = "fpeek", "datafiles", "Windows_1252.txt")
 
 test_that("ckeck number of lines without eof", {
-  expect_equal(wc_l(f1), 24)
-  expect_equal(wc_l(f2), 0)
+  expect_equal(peek_count_lines(f1), 24)
+  expect_equal(peek_count_lines(f2), 0)
 })
 
 test_that("ckeck number of lines with eof", {
-  expect_equal(wc_l(f1, with_eof = TRUE), 25)
-  expect_equal(wc_l(f2, with_eof = TRUE), 1)
+  expect_equal(peek_count_lines(f1, with_eof = TRUE), 25)
+  expect_equal(peek_count_lines(f2, with_eof = TRUE), 1)
 })
 
