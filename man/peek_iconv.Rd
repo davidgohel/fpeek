@@ -25,18 +25,13 @@ of characters and print the result.
 }
 \examples{
 la_cigale <- system.file(package = "fpeek", "datafiles",
-  "cigale-ISO-8859-1.txt")
+  "cigfou-ISO-8859-1.txt")
 
 peek_head(la_cigale)
 peek_iconv(la_cigale, from = "ISO-8859-1", to = "UTF-8")
 
-file <- system.file(package = "fpeek", "datafiles",
-  "Windows_1252.txt")
-peek_head(file)
-peek_iconv(file, from = "WINDOWS-1252", to = "UTF-8")
+peek_iconv(la_cigale, from = "ISO-8859-1", to = "UTF-8",
+  newfile = "cigale-utf-8.txt")
+peek_head("cigale-utf-8.txt", n = 10)
 
-file <- system.file(package = "fpeek", "datafiles",
-  "UTF16_BE.txt")
-peek_head(file)
-peek_iconv(file, from = "UTF-16", to = "UTF-8")
 }

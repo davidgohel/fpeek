@@ -7,11 +7,10 @@ Authors@R: c(
     email = "david.gohel@ardata.fr"))
 Description: Tools to help text files importation. It can return 
  the number of lines; print the first and last lines; convert 
- encoding; print the contents of a text file one screen at a time. 
- Operations are made without reading the entire file before 
- starting, resulting in good performances with large files. This 
- package provides an alternative to a simple use of the 'head', 
- 'tail', 'wc' and 'iconv' programs that are not always 
+ encoding. Operations are made without reading the entire file 
+ before starting, resulting in good performances with large files. 
+ This package provides an alternative to a simple use of the 
+ 'head', 'tail', 'wc' and 'iconv' programs that are not always 
  available on machine where R is installed.
 License: MIT + file LICENSE
 Encoding: UTF-8

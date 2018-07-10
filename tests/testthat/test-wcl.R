@@ -1,7 +1,7 @@
 context("count lines")
 
-f1 <- system.file(package = "fpeek", "datafiles", "cigale-ISO-8859-1.txt")
-f2 <- system.file(package = "fpeek", "datafiles", "Windows_1252.txt")
+f1 <- system.file(package = "fpeek", "datafiles", "cigfou-ISO-8859-1.txt")
+f2 <- system.file(package = "fpeek", "datafiles", "ISO-8859-1.txt")
 
 test_that("ckeck number of lines without eof", {
   expect_equal(peek_count_lines(f1), 24)

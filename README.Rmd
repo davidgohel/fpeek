@@ -25,20 +25,6 @@ library(flextable)
   <img width="15%" src="http://www.ardata.fr/images/fpeek.svg">
 </p>
 
-## Motivation 
-
-The first motivation to write that package is that many people who 
-need to import text files with R don't use `head`, `tail` and 
-`wc -l` commands. I noticed few use cases :
-
-* R is installed on a Windows machine but not Rtools (i.e. in corporate environments).
-* Users are unwilling to use command line, simply because there are not used to.
-* R is in a `Chroot Jail` and these commands are not avalaible to the user. 
-
-and I think these are great tools to use when importing 
-text files. Having a package avalaible for that should 
-make these tools easier to use for these users. 
-
 ## fpeek
 
 The goal of fpeek is to help importation of text files from R.
@@ -51,8 +37,11 @@ to have a glance at it helps to get those:
 first and last lines of the file. 
 
 Sometimes encoding is an issue when files generated on a "Windows" machine 
-has to be used on a "Linux" machine. Function `file_iconv` will converts 
+has to be used on a "Linux" machine. Function `peek_iconv` will converts 
 file content in one encoding to another encoding.
+
+Performances are good with large files because operations are made 
+without reading the entire file before starting. 
 
 
 ## Installation
@@ -107,10 +96,10 @@ peek_tail(power_file, n = 4)
 
 ```{r 'file-iconv-ex'}
 la_cigale <- system.file(package = "fpeek", "datafiles", 
-  "cigale-ISO-8859-1.txt")
+  "cigfou-ISO-8859-1.txt")
 peek_head(path = la_cigale, n = 4, intern = TRUE)
 
-peek_iconv(la_cigale, from = "WINDOWS-1252", to = "UTF-8")
+peek_iconv(la_cigale, from = "ISO-8859-1", to = "UTF-8")
 ```
 
 Function `peek_iconv()` is converting the content of the file 
@@ -120,51 +109,8 @@ a new reencoded file:
 ```{r 'file-iconv-sink-ex'}
 file_utf8 <- tempfile()
 peek_iconv(path = la_cigale, newfile = file_utf8, 
-  from = "WINDOWS-1252", to = "UTF-8")
+  from = "ISO-8859-1", to = "UTF-8")
 ```
 
-## Comparing speed with original tools:
 
-> function `peek_count_lines`
-
-```{r 'bench-nlines', message=FALSE, warning=FALSE}
-library(microbenchmark)
-
-benchmark <- microbenchmark(times = 20, 
-  "peek_count_lines" = { peek_count_lines(power_file) },
-  "wc -l command" = { system(sprintf("wc -l %s", power_file), intern = TRUE) }
-  )
-
-benchmark
-```
-
-> function `peek_head`
-
-
-```{r 'bench-head-show', message=FALSE, warning=FALSE, results='hide'}
-library(microbenchmark)
-benchmark <- microbenchmark(times = 20, 
-  "peek_head" = { peek_head(power_file, n = 5) },
-  "head command" = { system(sprintf("head -n 5 %s", power_file), intern = FALSE) }
-  )
-```
-
-```{r}
-benchmark
-```
-
-> function `peek_tail`
-
-
-```{r 'bench-tail-show', message=FALSE, warning=FALSE, results='hide'}
-library(microbenchmark)
-benchmark <- microbenchmark(times = 20, 
-  "peek_tail" = { peek_tail(power_file, n = 5) },
-  "tail command" = { system(sprintf("tail -n 5 %s", power_file), intern = FALSE) }
-  )
-```
-
-```{r}
-benchmark
-```
 

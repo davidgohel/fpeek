@@ -21,7 +21,7 @@ of a file.
 }
 \examples{
 f <- system.file(package = "fpeek",
-  "datafiles", "cigale-ISO-8859-1.txt")
+  "datafiles", "cigfou-ISO-8859-1.txt")
 peek_tail(f, n = 4)
 peek_tail(f, n = 4, intern = TRUE)
 }

@@ -15,23 +15,6 @@ status](https://codecov.io/gh/davidgohel/fpeek/branch/master/graph/badge.svg)](h
 
 </p>
 
-## Motivation
-
-The first motivation to write that package is that many people who need
-to import text files with R don’t use `head`, `tail` and `wc -l`
-commands. I noticed few use cases :
-
-  - R is installed on a Windows machine but not Rtools (i.e. in
-    corporate environments).
-  - Users are unwilling to use command line, simply because there are
-    not used to.
-  - R is in a `Chroot Jail` and these commands are not avalaible to the
-    user.
-
-and I think these are great tools to use when importing text files.
-Having a package avalaible for that should make these tools easier to
-use for these users.
-
 ## fpeek
 
 The goal of fpeek is to help importation of text files from R.
@@ -45,8 +28,11 @@ glance at it helps to get those:
     last lines of the file.
 
 Sometimes encoding is an issue when files generated on a “Windows”
-machine has to be used on a “Linux” machine. Function `file_iconv` will
+machine has to be used on a “Linux” machine. Function `peek_iconv` will
 converts file content in one encoding to another encoding.
+
+Performances are good with large files because operations are made
+without reading the entire file before starting.
 
 ## Installation
 
@@ -112,12 +98,12 @@ peek_tail(power_file, n = 4)
 
 ``` r
 la_cigale <- system.file(package = "fpeek", "datafiles", 
-  "cigale-ISO-8859-1.txt")
+  "cigfou-ISO-8859-1.txt")
 peek_head(path = la_cigale, n = 4, intern = TRUE)
 #> [1] "La Cigale et la Fourmi"     ""                          
 #> [3] "La Cigale, ayant chant\xe9" "Tout l'\xe9t\xe9,"
 
-peek_iconv(la_cigale, from = "WINDOWS-1252", to = "UTF-8")
+peek_iconv(la_cigale, from = "ISO-8859-1", to = "UTF-8")
 #> La Cigale et la Fourmi
 #> 
 #> La Cigale, ayant chanté
@@ -151,70 +137,6 @@ new reencoded file:
 ``` r
 file_utf8 <- tempfile()
 peek_iconv(path = la_cigale, newfile = file_utf8, 
-  from = "WINDOWS-1252", to = "UTF-8")
-#> [1] "/var/folders/51/6jygptvs3bb4njv0t6x7br900000gn/T//RtmpNAUbQ9/file574f3998a435"
-```
-
-## Comparing speed with original tools:
-
-> function `peek_count_lines`
-
-``` r
-library(microbenchmark)
-
-benchmark <- microbenchmark(times = 20, 
-  "peek_count_lines" = { peek_count_lines(power_file) },
-  "wc -l command" = { system(sprintf("wc -l %s", power_file), intern = TRUE) }
-  )
-
-benchmark
-#> Unit: milliseconds
-#>              expr      min       lq     mean   median       uq      max
-#>  peek_count_lines 291.8429 293.2893 294.6628 293.8899 295.2581 301.0816
-#>     wc -l command 109.5272 110.5058 111.2003 110.6771 111.6553 116.6164
-#>  neval
-#>     20
-#>     20
-```
-
-> function `peek_head`
-
-``` r
-library(microbenchmark)
-benchmark <- microbenchmark(times = 20, 
-  "peek_head" = { peek_head(power_file, n = 5) },
-  "head command" = { system(sprintf("head -n 5 %s", power_file), intern = FALSE) }
-  )
-```
-
-``` r
-benchmark
-#> Unit: microseconds
-#>          expr      min        lq      mean    median        uq      max
-#>     peek_head   51.580   56.3715   81.2272   72.4455   97.3755  209.916
-#>  head command 3290.337 3356.2485 3716.1257 3624.7805 3850.7530 5082.538
-#>  neval
-#>     20
-#>     20
-```
-
-> function `peek_tail`
-
-``` r
-library(microbenchmark)
-benchmark <- microbenchmark(times = 20, 
-  "peek_tail" = { peek_tail(power_file, n = 5) },
-  "tail command" = { system(sprintf("tail -n 5 %s", power_file), intern = FALSE) }
-  )
-```
-
-``` r
-benchmark
-#> Unit: milliseconds
-#>          expr       min        lq      mean    median        uq       max
-#>     peek_tail  26.17987  26.70084  27.41715  27.33668  27.96085  28.97339
-#>  tail command 126.93944 128.39081 129.12268 129.05840 129.74931 131.21899
-#>  neval
-#>     20
-#>     20
+  from = "ISO-8859-1", to = "UTF-8")
+#> [1] "/var/folders/51/6jygptvs3bb4njv0t6x7br900000gn/T//RtmpCbnyal/file7ecd1f30d11f"
 ```
