@@ -1,7 +1,7 @@
 ## Test environments
 
-* local macOS - High Sierra, R 3.5.0
-* ubuntu 14.04 (on travis-ci), R 3.5.0
+* local macOS - High Sierra, R 3.5.1
+* ubuntu 14.04 (on travis-ci, r oldrelease, release and devel)
 * win-builder (oldrelease, release and devel)
 * rhub::check_for_cran()
 

@@ -138,5 +138,5 @@ new reencoded file:
 file_utf8 <- tempfile()
 peek_iconv(path = la_cigale, newfile = file_utf8, 
   from = "ISO-8859-1", to = "UTF-8")
-#> [1] "/var/folders/51/6jygptvs3bb4njv0t6x7br900000gn/T//RtmpCbnyal/file7ecd1f30d11f"
+#> [1] "/var/folders/51/6jygptvs3bb4njv0t6x7br900000gn/T//Rtmpvi1pq2/filed70f1070c120"
 ```

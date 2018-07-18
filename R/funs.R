@@ -73,9 +73,10 @@ peek_tail <- function(path, n = 10, intern = FALSE) {
 #' peek_head(la_cigale)
 #' peek_iconv(la_cigale, from = "ISO-8859-1", to = "UTF-8")
 #'
+#' newfile <- tempfile()
 #' peek_iconv(la_cigale, from = "ISO-8859-1", to = "UTF-8",
-#'   newfile = "cigale-utf-8.txt")
-#' peek_head("cigale-utf-8.txt", n = 10)
+#'   newfile = newfile)
+#' peek_head(newfile, n = 10)
 #'
 peek_iconv <- function(path, from, to = "UTF-8", newfile = NULL) {
   if( is.null(newfile) ){
