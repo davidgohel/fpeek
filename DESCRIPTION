@@ -1,7 +1,7 @@
 Package: fpeek
 Type: Package
 Title: Check Text Files Content at a Glance
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"))
