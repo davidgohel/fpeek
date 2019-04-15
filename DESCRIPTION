@@ -12,6 +12,8 @@ Description: Tools to help text files importation. It can return
  This package provides an alternative to a simple use of the 
  'head', 'tail', 'wc' and 'iconv' programs that are not always 
  available on machine where R is installed.
+BugReports: https://github.com/davidgohel/flextable/issues
+URL: https://github.com/davidgohel/fpeek
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
