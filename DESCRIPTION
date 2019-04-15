@@ -12,14 +12,14 @@ Description: Tools to help text files importation. It can return
  This package provides an alternative to a simple use of the 
  'head', 'tail', 'wc' and 'iconv' programs that are not always 
  available on machine where R is installed.
-BugReports: https://github.com/davidgohel/flextable/issues
+BugReports: https://github.com/davidgohel/fpeek/issues
 URL: https://github.com/davidgohel/fpeek
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: Rcpp (>= 0.12.12)
 LinkingTo: Rcpp
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 6.1.1
 Suggests: 
     testthat,
     covr
