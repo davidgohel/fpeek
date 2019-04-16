@@ -1,15 +1,17 @@
 ## Test environments
 
-* local macOS - High Sierra, R 3.5.1
-* ubuntu 14.04 (on travis-ci, r oldrelease, release and devel)
-* win-builder (oldrelease, release and devel)
-* rhub::check_for_cran()
+- local OS X install (R 3.5.2)
+- ubuntu 14.05 (on travis-ci with older and release)
+- winbuilder (older, release and devel)
 
 ## R CMD check results
 
-There were 0 error, 0 warning and 1 note:
+There were no ERROR, WARNING or NOTE. 
 
-    * checking CRAN incoming feasibility ... NOTE
-    Maintainer: 'David Gohel <david.gohel@ardata.fr>'
-    
-    New submission
+## Reverse dependencies
+
+There were 0 ERROR, 0 WARNING and 0 NOTE.
+
+|package  |version |error |warning |note |
+|:--------|:-------|:-----|:-------|:----|
+|bigreadr |0.1.3   |      |        |     |
