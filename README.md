@@ -1,22 +1,15 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-[![Travis-CI Build
-Status](https://travis-ci.org/davidgohel/fpeek.svg?branch=master)](https://travis-ci.org/davidgohel/fpeek)
-[![AppVeyor build
-status](https://ci.appveyor.com/api/projects/status/github/davidgohel/fpeek?branch=master&svg=true)](https://ci.appveyor.com/project/davidgohel/fpeek)
-[![version](http://www.r-pkg.org/badges/version/fpeek)](https://CRAN.R-project.org/package=fpeek)
-![cranlogs](http://cranlogs.r-pkg.org./badges/fpeek) [![Coverage
-status](https://codecov.io/gh/davidgohel/fpeek/branch/master/graph/badge.svg)](https://codecov.io/github/davidgohel/fpeek?branch=master)
+<!-- badges: start -->
 
-<p align="center">
-
-<img width="15%" src="http://www.ardata.fr/images/fpeek.svg">
-
-</p>
+[![R build
+status](https://github.com/davidgohel/fpeek/workflows/R-CMD-check/badge.svg)](https://github.com/davidgohel/fpeek/actions)
+<!-- badges: end -->
 
 ## fpeek
 
+<a href="https://github.com/davidgohel/fpeek"><img src="man/figures/logo.png" alt="fpeek logo" align="right" /></a>
 The goal of fpeek is to help importation of text files from R.
 
 When a text file has unknown characteristics, beeing able to have a
@@ -138,5 +131,5 @@ new reencoded file:
 file_utf8 <- tempfile()
 peek_iconv(path = la_cigale, newfile = file_utf8, 
   from = "ISO-8859-1", to = "UTF-8")
-#> [1] "/var/folders/51/6jygptvs3bb4njv0t6x7br900000gn/T//Rtmpvi1pq2/filed70f1070c120"
+#> [1] "/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T//RtmpZOw09u/filefffc4b52997c"
 ```
