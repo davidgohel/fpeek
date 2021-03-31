@@ -1,7 +1,8 @@
 .Rproj.user
 .Rhistory
 .RData
+.Ruserdata
+revdep
 src/*.o
 src/*.so
 src/*.dll
-singleindex.csv
