@@ -5,6 +5,10 @@
 
 [![R build
 status](https://github.com/davidgohel/fpeek/workflows/R-CMD-check/badge.svg)](https://github.com/davidgohel/fpeek/actions)
+[![version](https://www.r-pkg.org/badges/version/fpeek)](https://CRAN.R-project.org/package=fpeek)
+[![test
+coverage](https://codecov.io/gh/davidgohel/fpeek/branch/master/graph/badge.svg)](https://app.codecov.io/gh/davidgohel/fpeek)
+![Active](https://www.repostatus.org/badges/latest/active.svg)
 <!-- badges: end -->
 
 ## fpeek
@@ -133,7 +137,6 @@ new reencoded file:
 file_utf8 <- tempfile()
 peek_iconv(path = la_cigale, newfile = file_utf8,
   from = "ISO-8859-1", to = "UTF-8")
-#> [1] "/var/folders/5w/m8vcnwyj5jv10z_9s1myl5vm0000gn/T//RtmpUMOEY2/file166b767867dab"
 ```
 
 ### Guess delimiter and quote character

@@ -6,3 +6,4 @@ revdep
 src/*.o
 src/*.so
 src/*.dll
+docs

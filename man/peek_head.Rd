@@ -21,7 +21,7 @@ of a file.
 }
 \examples{
 f <- system.file(package = "fpeek",
-  "datafiles", "cigfou-ISO-8859-1.txt")
+  "datafiles", "test-tab.csv")
 peek_head(f, n = 4)
 peek_head(f, n = 4, intern = TRUE)
 }

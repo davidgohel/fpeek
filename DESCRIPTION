@@ -12,7 +12,7 @@ Description: Tools to help text files importation. It can return the
     a simple use of the 'head', 'tail', 'wc' and 'iconv' programs that are
     not always available on machine where R is installed.
 License: MIT + file LICENSE
-URL: https://github.com/davidgohel/fpeek
+URL: https://github.com/davidgohel/fpeek, https://davidgohel.github.io/fpeek/
 BugReports: https://github.com/davidgohel/fpeek/issues
 Imports: 
     Rcpp (>= 0.12.12)

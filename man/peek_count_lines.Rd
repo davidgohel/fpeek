@@ -22,6 +22,6 @@ number of new line symbols in the file.
 }
 \examples{
 f <- system.file(package = "fpeek",
-  "datafiles", "cigfou-ISO-8859-1.txt")
+  "datafiles", "test-tab.csv")
 peek_count_lines(f)
 }

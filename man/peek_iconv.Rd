@@ -27,7 +27,6 @@ of characters and print the result.
 la_cigale <- system.file(package = "fpeek", "datafiles",
   "cigfou-ISO-8859-1.txt")
 
-peek_head(la_cigale)
 peek_iconv(la_cigale, from = "ISO-8859-1", to = "UTF-8")
 
 newfile <- tempfile()
