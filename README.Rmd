@@ -28,11 +28,14 @@ When a text file has unknown characteristics, beeing able
 to have a glance at it helps to get those:
 
 * Use function `peek_count_lines()` to count lines contained in a file.
-* Functions `peek_head()` and `peek_tail()` will display 
-first and last lines of the file. 
+* Functions `peek_head()` and `peek_tail()` will display
+first and last lines of the file.
+* Function `peek_guess_delim()` detects the delimiter, quote character and
+decimal mark of a delimited text file.
+* Function `peek_guess_encoding()` detects the encoding of a text file.
 
-Sometimes encoding is an issue when files generated on a "Windows" machine 
-has to be used on a "Linux" machine. Function `peek_iconv` will converts 
+Sometimes encoding is an issue when files generated on a "Windows" machine
+has to be used on a "Linux" machine. Function `peek_iconv` will converts
 file content in one encoding to another encoding.
 
 Performances are good with large files because operations are made 
@@ -97,15 +100,49 @@ peek_head(path = la_cigale, n = 4, intern = TRUE)
 peek_iconv(la_cigale, from = "ISO-8859-1", to = "UTF-8")
 ```
 
-Function `peek_iconv()` is converting the content of the file 
-and print the result in the console. Use `peek_iconv(newfile = "...")` to create 
+Function `peek_iconv()` is converting the content of the file
+and print the result in the console. Use `peek_iconv(newfile = "...")` to create
 a new reencoded file:
 
 ```{r 'file-iconv-sink-ex'}
 file_utf8 <- tempfile()
-peek_iconv(path = la_cigale, newfile = file_utf8, 
+peek_iconv(path = la_cigale, newfile = file_utf8,
   from = "ISO-8859-1", to = "UTF-8")
+```
+
+### Guess delimiter and quote character
+
+`peek_guess_delim()` reads the first lines of a text file and detects
+the delimiter, quote character and decimal mark.
+
+```{r 'guess-delim-comma'}
+comma_file <- system.file(package = "fpeek", "datafiles", "test-comma.csv")
+peek_head(comma_file, n = 3)
+peek_guess_delim(comma_file)
+```
+
+```{r 'guess-delim-semicolon'}
+semicolon_file <- system.file(package = "fpeek", "datafiles", "test-semicolon.csv")
+peek_head(semicolon_file, n = 3)
+peek_guess_delim(semicolon_file)
+```
+
+### Guess file encoding
+
+`peek_guess_encoding()` detects the encoding of a text file. It requires
+the `readr` package (listed in Suggests).
+
+```{r 'guess-encoding'}
+la_cigale <- system.file(package = "fpeek", "datafiles",
+  "cigfou-ISO-8859-1.txt")
+peek_guess_encoding(la_cigale)
 ```
 
 
 
+
+```{r include=FALSE}
+power_file <- "singleindex.csv"
+if( file.exists(power_file))
+  unlink(power_file)
+```

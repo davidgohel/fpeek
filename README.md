@@ -15,10 +15,12 @@ The goal of fpeek is to help importation of text files from R.
 When a text file has unknown characteristics, beeing able to have a
 glance at it helps to get those:
 
-  - Use function `peek_count_lines()` to count lines contained in a
-    file.
-  - Functions `peek_head()` and `peek_tail()` will display first and
-    last lines of the file.
+- Use function `peek_count_lines()` to count lines contained in a file.
+- Functions `peek_head()` and `peek_tail()` will display first and last
+  lines of the file.
+- Function `peek_guess_delim()` detects the delimiter, quote character
+  and decimal mark of a delimited text file.
+- Function `peek_guess_encoding()` detects the encoding of a text file.
 
 Sometimes encoding is an issue when files generated on a “Windows”
 machine has to be used on a “Linux” machine. Function `peek_iconv` will
@@ -129,7 +131,58 @@ new reencoded file:
 
 ``` r
 file_utf8 <- tempfile()
-peek_iconv(path = la_cigale, newfile = file_utf8, 
+peek_iconv(path = la_cigale, newfile = file_utf8,
   from = "ISO-8859-1", to = "UTF-8")
-#> [1] "/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T//RtmpZOw09u/filefffc4b52997c"
+#> [1] "/var/folders/5w/m8vcnwyj5jv10z_9s1myl5vm0000gn/T//RtmpUMOEY2/file166b767867dab"
+```
+
+### Guess delimiter and quote character
+
+`peek_guess_delim()` reads the first lines of a text file and detects
+the delimiter, quote character and decimal mark.
+
+``` r
+comma_file <- system.file(package = "fpeek", "datafiles", "test-comma.csv")
+peek_head(comma_file, n = 3)
+#> name,age,city
+#> "Alice",30,"New York"
+#> "Bob",25,"Los Angeles"
+peek_guess_delim(comma_file)
+#> $delim
+#> [1] ","
+#> 
+#> $quote
+#> [1] "\""
+#> 
+#> $decimal_mark
+#> [1] "."
+```
+
+``` r
+semicolon_file <- system.file(package = "fpeek", "datafiles", "test-semicolon.csv")
+peek_head(semicolon_file, n = 3)
+#> name;age;city
+#> "Alice";30;"New York"
+#> "Bob";25;"Los Angeles"
+peek_guess_delim(semicolon_file)
+#> $delim
+#> [1] ";"
+#> 
+#> $quote
+#> [1] "\""
+#> 
+#> $decimal_mark
+#> [1] ","
+```
+
+### Guess file encoding
+
+`peek_guess_encoding()` detects the encoding of a text file. It requires
+the `readr` package (listed in Suggests).
+
+``` r
+la_cigale <- system.file(package = "fpeek", "datafiles",
+  "cigfou-ISO-8859-1.txt")
+peek_guess_encoding(la_cigale)
+#> [1] "ISO-8859-1"
 ```
