@@ -1,24 +1,26 @@
-Package: fpeek
 Type: Package
+Package: fpeek
 Title: Check Text Files Content at a Glance
-Version: 0.1.2
-Authors@R: c(
-    person("David", "Gohel", role = c("aut", "cre"),
-    email = "david.gohel@ardata.fr"))
-Description: Tools to help text files importation. It can return 
- the number of lines; print the first and last lines; convert 
- encoding. Operations are made without reading the entire file 
- before starting, resulting in good performances with large files. 
- This package provides an alternative to a simple use of the 
- 'head', 'tail', 'wc' and 'iconv' programs that are not always 
- available on machine where R is installed.
-BugReports: https://github.com/davidgohel/fpeek/issues
-URL: https://github.com/davidgohel/fpeek
+Version: 0.2.0
+Authors@R: 
+    person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre"))
+Description: Tools to help text files importation. It can return the
+    number of lines; print the first and last lines; convert encoding;
+    guess delimiters and file encoding. Operations are made without
+    reading the entire file before starting, resulting in good
+    performances with large files. This package provides an alternative to
+    a simple use of the 'head', 'tail', 'wc' and 'iconv' programs that are
+    not always available on machine where R is installed.
 License: MIT + file LICENSE
+URL: https://github.com/davidgohel/fpeek
+BugReports: https://github.com/davidgohel/fpeek/issues
+Imports: 
+    Rcpp (>= 0.12.12)
+Suggests:
+    covr,
+    readr,
+    testthat
+LinkingTo: 
+    Rcpp
 Encoding: UTF-8
-Imports: Rcpp (>= 0.12.12)
-LinkingTo: Rcpp
-RoxygenNote: 7.1.1
-Suggests: 
-    testthat,
-    covr
+RoxygenNote: 7.3.3

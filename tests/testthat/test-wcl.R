@@ -12,4 +12,3 @@ test_that("ckeck number of lines with eof", {
   expect_equal(peek_count_lines(f1, with_eof = TRUE), 25)
   expect_equal(peek_count_lines(f2, with_eof = TRUE), 1)
 })
-

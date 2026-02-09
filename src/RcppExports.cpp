@@ -5,6 +5,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // nlines_
 int nlines_(std::string filename, bool with_eof);
 RcppExport SEXP _fpeek_nlines_(SEXP filenameSEXP, SEXP with_eofSEXP) {
