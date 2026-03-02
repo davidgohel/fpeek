@@ -42,8 +42,9 @@ peek_guess_delim <- function(
   tmp[is.na(tmp)] <- lines[is.na(tmp)]
 
   # clear quoted text to avoid false positives
+  # useBytes = TRUE prevents errors on strings with invalid multibyte sequences
   for (q in quotes) {
-    tmp <- gsub(paste0(q, "[^", q, "]*", q), "", tmp)
+    tmp <- gsub(paste0(q, "[^", q, "]*", q), "", tmp, useBytes = TRUE)
   }
 
   splits <- lapply(delims, strsplit, x = tmp, useBytes = TRUE, fixed = TRUE)
@@ -103,7 +104,8 @@ peek_guess_delim <- function(
     function(q) {
       length(unlist(regmatches(
         lines,
-        gregexpr(paste0("(", q, "[^", q, "]*", q, delim_esc, ")"), lines)
+        gregexpr(paste0("(", q, "[^", q, "]*", q, delim_esc, ")"), lines,
+                 useBytes = TRUE)
       )))
     },
     integer(1)
