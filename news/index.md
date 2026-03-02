@@ -2,6 +2,8 @@
 
 ## fpeek 0.2.0
 
+CRAN release: 2026-02-09
+
 ### New features
 
 - New function
