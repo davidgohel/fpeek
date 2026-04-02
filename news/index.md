@@ -1,5 +1,7 @@
 # Changelog
 
+## fpeek 0.2.1
+
 ## fpeek 0.2.0
 
 CRAN release: 2026-02-09

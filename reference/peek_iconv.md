@@ -62,7 +62,7 @@ peek_iconv(la_cigale, from = "ISO-8859-1", to = "UTF-8")
 newfile <- tempfile()
 peek_iconv(la_cigale, from = "ISO-8859-1", to = "UTF-8",
   newfile = newfile)
-#> [1] "/tmp/RtmpL41u1X/file1ad725045484"
+#> [1] "/tmp/RtmpUDmh02/file1cb880ddf85"
 peek_head(newfile, n = 10)
 #> La Cigale et la Fourmi
 #> 
