@@ -7,7 +7,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/davidgohel/fpeek/blob/master/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/davidgohel/fpeek/blob/main/DESCRIPTION)
 
 Gohel D (2026). *fpeek: Check Text Files Content at a Glance*. R package
 version 0.2.1, <https://github.com/davidgohel/fpeek>.

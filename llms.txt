@@ -33,6 +33,7 @@ without reading the entire file before starting.
 ## Installation
 
 ``` r
+
 devtools::install_github("davidgohel/fpeek")
 ```
 
@@ -42,6 +43,7 @@ First download an example file, the file is containing lot of times
 series about power system and has lot of lines.
 
 ``` r
+
 library(fpeek)
 power_file <- "singleindex.csv"
 if( !file.exists(power_file))
@@ -55,6 +57,7 @@ if( !file.exists(power_file))
 Using `wc -l`
 
 ``` r
+
 system(sprintf("wc -l %s", power_file), intern = TRUE)
 #> [1] "  420773 singleindex.csv"
 ```
@@ -63,6 +66,7 @@ Using
 [`peek_count_lines()`](https://davidgohel.github.io/fpeek/reference/peek_count_lines.md)
 
 ``` r
+
 peek_count_lines(power_file)
 #> [1] 420773
 ```
@@ -73,6 +77,7 @@ The first lines can be printed in the console with function
 [`peek_head()`](https://davidgohel.github.io/fpeek/reference/peek_head.md).
 
 ``` r
+
 peek_head(power_file, n = 4)
 #> utc_timestamp,cet_cest_timestamp,AT_load_entsoe_transparency,AT_solar_generation_actual,AT_wind_onshore_generation_actual,DE_load_entsoe_transparency,DE_solar_capacity,DE_solar_generation_actual,DE_solar_profile,DE_wind_capacity,DE_wind_generation_actual,DE_wind_profile,DE_wind_offshore_capacity,DE_wind_offshore_generation_actual,DE_wind_offshore_profile,DE_wind_onshore_capacity,DE_wind_onshore_generation_actual,DE_wind_onshore_profile,DE_50hertz_load_entsoe_transparency,DE_50hertz_solar_generation_actual,DE_50hertz_solar_generation_forecast,DE_50hertz_wind_generation_actual,DE_50hertz_wind_generation_forecast,DE_50hertz_wind_offshore_generation_actual,DE_50hertz_wind_offshore_generation_forecast,DE_50hertz_wind_onshore_generation_actual,DE_50hertz_wind_onshore_generation_forecast,DE_AT_LU_load_entsoe_transparency,DE_AT_LU_solar_generation_actual,DE_AT_LU_wind_offshore_generation_actual,DE_AT_LU_wind_onshore_generation_actual,DE_amprion_load_entsoe_transparency,DE_amprion_solar_generation_actual,DE_amprion_solar_generation_forecast,DE_amprion_wind_generation_actual,DE_amprion_wind_generation_forecast,DE_amprion_wind_onshore_generation_actual,DE_tennet_load_entsoe_transparency,DE_tennet_solar_generation_actual,DE_tennet_solar_generation_forecast,DE_tennet_wind_generation_actual,DE_tennet_wind_generation_forecast,DE_tennet_wind_offshore_generation_actual,DE_tennet_wind_onshore_generation_actual,DE_transnetbw_load_entsoe_transparency,DE_transnetbw_solar_generation_actual,DE_transnetbw_solar_generation_forecast,DE_transnetbw_wind_generation_actual,DE_transnetbw_wind_generation_forecast,DE_transnetbw_wind_onshore_generation_actual,HU_load_entsoe_transparency,HU_wind_onshore_generation_actual,LU_load_entsoe_transparency,NL_load_entsoe_transparency,NL_solar_generation_actual,NL_wind_offshore_generation_actual,NL_wind_onshore_generation_actual,interpolated_values
 #> 2005-12-31T23:00:00Z,2006-01-01T00:00:00+0100,,,,,2028.0000,,,,,,,,,16394.0000,,,,,,2013.0000,1366.0000,,,,,,,,,,,,,,,,,,1705.0000,1864.0000,0.0000,1705.0000,,,,,,,,,,,,,,
@@ -84,6 +89,7 @@ The last lines can be printed in the console with function
 [`peek_tail()`](https://davidgohel.github.io/fpeek/reference/peek_tail.md).
 
 ``` r
+
 peek_tail(power_file, n = 4)
 #> 2017-12-31T23:00:00Z,2018-01-01T00:00:00+0100,5657.6000,0.0000,922.5770,44607.9100,41951.0000,0.0000,0.0000,55790.0000,30955.0000,0.5548,5323.0000,2973.0000,0.5585,50467.0000,27982.0000,0.5545,6476.3300,0.0000,0.0000,10230.6900,9979.4540,186.7680,83.5990,10043.9220,9895.8550,50769.3400,0.0000,2972.8500,28860.5200,17349.8600,0.0000,0.0000,6957.0000,6757.0000,6957.0000,15817.9100,0.0000,0.0000,12679.0000,13097.0000,2786.0000,9893.0000,4963.8100,0.0000,0.0000,1088.0000,1016.0000,1088.0000,4028.8900,78.4900,503.8300,9956.0300,0.0000,849.6100,2654.9400,
 #> 2017-12-31T23:15:00Z,2018-01-01T00:15:00+0100,5597.6000,0.0000,931.9630,43777.3000,41951.0000,0.0000,0.0000,55790.0000,31608.0000,0.5666,5323.0000,2991.0000,0.5619,50467.0000,28617.0000,0.5671,6415.8600,0.0000,0.0000,10400.4320,9947.9450,203.9830,82.7620,10196.4490,9865.1830,49844.1800,0.0000,2990.8400,29549.0400,16857.5200,0.0000,0.0000,7046.0000,6850.0000,7046.0000,15618.8700,0.0000,0.0000,13057.0000,13284.0000,2787.0000,10270.0000,4885.0500,0.0000,0.0000,1105.0000,1025.0000,1105.0000,4002.3600,82.5400,469.2800,9856.0100,0.0000,852.6100,2738.7900,
@@ -94,6 +100,7 @@ peek_tail(power_file, n = 4)
 ### File reencoding
 
 ``` r
+
 la_cigale <- system.file(package = "fpeek", "datafiles", 
   "cigfou-ISO-8859-1.txt")
 peek_head(path = la_cigale, n = 4, intern = TRUE)
@@ -134,6 +141,7 @@ console. Use `peek_iconv(newfile = "...")` to create a new reencoded
 file:
 
 ``` r
+
 file_utf8 <- tempfile()
 peek_iconv(path = la_cigale, newfile = file_utf8,
   from = "ISO-8859-1", to = "UTF-8")
@@ -146,6 +154,7 @@ reads the first lines of a text file and detects the delimiter, quote
 character and decimal mark.
 
 ``` r
+
 comma_file <- system.file(package = "fpeek", "datafiles", "test-comma.csv")
 peek_head(comma_file, n = 3)
 #> name,age,city
@@ -163,6 +172,7 @@ peek_guess_delim(comma_file)
 ```
 
 ``` r
+
 semicolon_file <- system.file(package = "fpeek", "datafiles", "test-semicolon.csv")
 peek_head(semicolon_file, n = 3)
 #> name;age;city
@@ -186,6 +196,7 @@ detects the encoding of a text file. It requires the `readr` package
 (listed in Suggests).
 
 ``` r
+
 la_cigale <- system.file(package = "fpeek", "datafiles",
   "cigfou-ISO-8859-1.txt")
 peek_guess_encoding(la_cigale)
