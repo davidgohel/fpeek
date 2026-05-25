@@ -7,7 +7,7 @@
 status](https://github.com/davidgohel/fpeek/workflows/R-CMD-check/badge.svg)](https://github.com/davidgohel/fpeek/actions)
 [![version](https://www.r-pkg.org/badges/version/fpeek)](https://CRAN.R-project.org/package=fpeek)
 [![test
-coverage](https://codecov.io/gh/davidgohel/fpeek/branch/master/graph/badge.svg)](https://app.codecov.io/gh/davidgohel/fpeek)
+coverage](https://codecov.io/gh/davidgohel/fpeek/branch/main/graph/badge.svg)](https://app.codecov.io/gh/davidgohel/fpeek)
 ![Active](https://www.repostatus.org/badges/latest/active.svg)
 <!-- badges: end -->
 
